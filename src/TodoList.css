@@ -1,0 +1,17 @@
+.todo-list {
+	flex-grow: 1; /* fill space between selector and details */
+	/* make a vertical flexbox for todo list name and content */
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+.todo-list-add-button {
+	width: fit-content;
+	display: inline-block;
+}
+
+.todo-list-clear-button {
+	width: fit-content;
+	display: inline-block;
+}

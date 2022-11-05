@@ -1,0 +1,11 @@
+.header {
+	height: 5rem;
+	flex-shrink: 0; /* make header height static */
+	background-color: #4C3A51;
+}
+
+.header > h1 {
+	font-weight: normal;
+	text-shadow: 2px 2px 4px #000000;
+	color: #E7AB79;
+}

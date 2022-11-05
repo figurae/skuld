@@ -1,0 +1,14 @@
+.todo-item-footer {
+	overflow: hidden;
+	height: 1rem;
+	border-radius: inherit;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: .25rem;
+	background-color: orange;
+}
+
+.todo-item-footer > p {
+	text-align: right;
+	font-size: 12px;
+}

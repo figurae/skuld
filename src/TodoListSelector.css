@@ -1,0 +1,8 @@
+.todo-list-selector {
+	padding: var(--todo-gap);
+	background-color: #774360;
+}
+
+.todo-list-selector > h1 {
+	font-weight: normal;
+}

@@ -1,0 +1,4 @@
+.todo-list-header {
+	padding: var(--todo-gap);
+	background-color: firebrick;
+}

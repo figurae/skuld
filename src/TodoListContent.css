@@ -1,0 +1,11 @@
+.todo-list-content {
+	/* make a vertical flexbox for individual todo items */
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	padding: 2% 5%;
+	gap: var(--todo-gap);
+	overflow-y: auto; /* make todo list content scrollable vertically */
+	overflow-x: hidden;
+	background-color: pink;
+}

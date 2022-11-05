@@ -1,0 +1,12 @@
+.todo-item-content {
+	overflow: hidden;
+	position: relative; /* prepare coordinates for close button */
+	padding: .25rem;
+}
+
+.todo-item-content > button {
+	/* push button to the right and make it overlap content */
+	position: absolute;
+	right: .25rem;
+	width: 20px;
+}
