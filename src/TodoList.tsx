@@ -13,18 +13,18 @@ interface TodoListProps {
 
 interface TodoListState {
 	todoList: Array<ReactNode>;
+	currentTodoItemId: number;
 }
 
 class TodoList extends React.Component<TodoListProps, TodoListState> {
 	static contextType = AppContext;
 	context!: React.ContextType<typeof AppContext>;
 
-	keyNo = 0;
 	todoListStorage: Array<TodoItemData> = [];
 
 	constructor(props: TodoListProps) {
 		super(props);
-		this.state = { todoList: [] };
+		this.state = { todoList: [], currentTodoItemId: 0 };
 	}
 
 	componentDidMount() {
@@ -38,19 +38,26 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 			for (const item of this.todoListStorage) {
 				todoListNodes.push(this.convertItemToNode(item));
 			}
+
+			this.setState({
+				currentTodoItemId:
+					this.todoListStorage[this.todoListStorage.length - 1].todoItemId + 1,
+			});
 		} else {
 			this.todoListStorage = [];
 		}
 
-		this.setState({ todoList: todoListNodes });
+		this.setState({
+			todoList: todoListNodes,
+		});
 	}
 
 	addTodo = () => {
-		const name = 'dis be todo no. ' + this.keyNo;
+		const name = 'dis be todo no. ' + this.state.currentTodoItemId;
 		const date = new Date().toLocaleString('gb-GB');
 
 		const newTodoItem: TodoItemData = {
-			todoItemId: this.keyNo,
+			todoItemId: this.state.currentTodoItemId,
 			todoItemName: name,
 			todoItemCreated: date,
 		};
@@ -60,7 +67,9 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 				todoList: [...prevState.todoList, this.convertItemToNode(newTodoItem)],
 			}),
 			() => {
-				this.keyNo++;
+				this.setState((prevState) => ({
+					currentTodoItemId: prevState.currentTodoItemId + 1,
+				}));
 				this.todoListStorage.push(newTodoItem);
 				localStorage.setItem(
 					this.context?.storageKey as string,
@@ -85,6 +94,11 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 						return item.todoItemId !== todoItemId;
 					}
 				);
+
+				if (this.todoListStorage.length === 0) {
+					this.clearTodoList();
+					return;
+				}
 
 				localStorage.setItem(
 					this.context?.storageKey as string,
