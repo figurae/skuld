@@ -109,11 +109,16 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 	};
 
 	clearTodoList = () => {
-		this.setState({
-			todoList: [],
-		});
-
-		localStorage.clear();
+		this.setState(
+			{
+				todoList: [],
+				currentTodoItemId: 0,
+			},
+			() => {
+				this.todoListStorage = [];
+				localStorage.clear();
+			}
+		);
 	};
 
 	convertItemToNode(item: TodoItemData): ReactNode {
