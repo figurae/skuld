@@ -7,7 +7,9 @@ function Footer() {
 
 	return (
 		<footer className='footer'>
-			<p className='text-center'>(╯°□°）╯︵ ┻━┻ ||| ver. {appContext.appVersion}</p>
+			<p className='text-center'>
+				(╯°□°）╯︵ ┻━┻ ||| ver. {appContext?.appVersion}
+			</p>
 		</footer>
 	);
 }

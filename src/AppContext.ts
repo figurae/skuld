@@ -1,6 +1,9 @@
 import React from 'react';
 
-export const AppContext = React.createContext({
-	appName: 'skuld.js',
-	appVersion: '0.1.0',
-});
+export interface IAppContext {
+	appName: string;
+	appVersion: string;
+	storageKey: string;
+}
+
+export const AppContext = React.createContext<IAppContext | null>(null);

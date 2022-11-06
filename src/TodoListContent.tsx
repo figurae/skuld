@@ -1,11 +1,12 @@
-import "./TodoListContent.css";
+import { ReactNode } from 'react';
+import './TodoListContent.css';
 
-interface ITodoListContentProps {
-  children: Array<JSX.Element>;
+interface TodoListContentProps {
+	children: ReactNode;
 }
 
-function TodoListContent(props: ITodoListContentProps) {
-  return <div className="todo-list-content">{props.children}</div>;
+function TodoListContent(props: TodoListContentProps) {
+	return <div className='todo-list-content'>{props.children}</div>;
 }
 
 export default TodoListContent;

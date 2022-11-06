@@ -2,12 +2,13 @@ import './App.css';
 import Header from './Header';
 import TodoContainer from './TodoContainer';
 import Footer from './Footer';
-import { AppContext } from './AppContext';
+import { AppContext, IAppContext } from './AppContext';
 
 function App() {
-	const appContext = {
-		appName: 'skuld.js',
+	const appContext: IAppContext = {
+		appName: 'skuld',
 		appVersion: '0.1.0',
+		storageKey: 'skuld-storage',
 	};
 
 	return (
