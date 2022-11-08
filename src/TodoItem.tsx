@@ -5,7 +5,11 @@ import TodoItemFooter from './TodoItemFooter';
 export interface TodoItemData {
 	todoItemId: number;
 	todoItemName: string;
-	todoItemCreated: string;
+	todoItemDescription?: string;
+	todoItemCreated: Date;
+	todoItemCompleted?: Date;
+	todoItemProgress: number;
+	todoItemTags?: Array<number>;
 }
 
 export interface TodoItemProps {
@@ -26,7 +30,9 @@ function TodoItem(props: TodoItemProps) {
 				<p>{props.todoItem.todoItemName}</p>
 			</TodoItemContent>
 			<TodoItemFooter>
-				<p>added on: {props.todoItem.todoItemCreated}</p>
+				<p>
+					added on: {props.todoItem.todoItemCreated.toLocaleString('gb-GB')}
+				</p>
 			</TodoItemFooter>
 		</article>
 	);

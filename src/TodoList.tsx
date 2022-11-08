@@ -1,4 +1,21 @@
+/* localStorage data structure:
+		key: skuld-todos
+	todoItemId: number
+	todoItemName: string
+	todoItemDescription?: string
+	todoItemCreated: Date
+	todoItemCompleted?: Date
+	todoItemProgress: number
+	todoItemTags?: Array<number>
+		key: skuld-tags
+	todoTagId: number
+	todoTagName: string
+	todoTagItems?: Array<number> */
 // TODO: make helpers for localstorage and todo management.
+// TODO: check ReactElement/JSX.Element (vs ReactNode)
+// TODO: add input for new todos
+// TODO: add todo editing
+// TODO: add tags
 
 import './TodoList.css';
 import TodoItem, { TodoItemData } from './TodoItem';
@@ -54,12 +71,13 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 
 	addTodo = () => {
 		const name = 'dis be todo no. ' + this.state.currentTodoItemId;
-		const date = new Date().toLocaleString('gb-GB');
+		const date = new Date();
 
 		const newTodoItem: TodoItemData = {
 			todoItemId: this.state.currentTodoItemId,
 			todoItemName: name,
 			todoItemCreated: date,
+			todoItemProgress: 0,
 		};
 
 		this.setState(
