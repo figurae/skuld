@@ -4,6 +4,7 @@
 	todoItemName: string
 	todoItemDescription?: string
 	todoItemCreated: Date
+	todoItemEdited?: Date
 	todoItemCompleted?: Date
 	todoItemProgress: number
 	todoItemTags?: Array<number>
@@ -11,7 +12,6 @@
 	todoTagId: number
 	todoTagName: string
 	todoTagItems?: Array<number> */
-// TODO: make helpers for localstorage and todo management.
 // TODO: check ReactElement/JSX.Element (vs ReactNode)
 // TODO: add input for new todos
 // TODO: add todo editing
@@ -23,12 +23,14 @@ import TodoListContent from './TodoListContent';
 import TodoListHeader from './TodoListHeader';
 import React, { ReactNode } from 'react';
 import { AppContext } from './AppContext';
+import { setInLocalStorage, getFromLocalStorage } from 'LocalStorageHelper';
 
 interface TodoListProps {
 	todoListName: string;
 }
 
 interface TodoListState {
+	// this is the final todoList array with JSX used for rendering
 	todoList: Array<ReactNode>;
 	currentTodoItemId: number;
 }
@@ -37,6 +39,7 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 	static contextType = AppContext;
 	context!: React.ContextType<typeof AppContext>;
 
+	// this is the todoList saved in localStorage, pure data without JSX
 	todoListStorage: Array<TodoItemData> = [];
 
 	constructor(props: TodoListProps) {
@@ -45,10 +48,11 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 	}
 
 	componentDidMount() {
+		// create a todoList from stored todos
 		const todoListNodes: Array<ReactNode> = [];
 
-		this.todoListStorage = JSON.parse(
-			localStorage.getItem(this.context?.storageKey as string) as string
+		this.todoListStorage = getFromLocalStorage(
+			this.context?.storageKey as string
 		);
 
 		if (this.todoListStorage !== null) {
@@ -69,29 +73,33 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 		});
 	}
 
-	addTodo = () => {
-		const name = 'dis be todo no. ' + this.state.currentTodoItemId;
+	addTodo = (todoName?: string) => {
+		// TODO: handle nulls more gracefully
 		const date = new Date();
 
 		const newTodoItem: TodoItemData = {
 			todoItemId: this.state.currentTodoItemId,
-			todoItemName: name,
+			todoItemName: todoName as string,
 			todoItemCreated: date,
 			todoItemProgress: 0,
 		};
 
 		this.setState(
+			// append new todo to the current list of ReactNodes
 			(prevState) => ({
 				todoList: [...prevState.todoList, this.convertItemToNode(newTodoItem)],
 			}),
+			// ... and add it to storage as well
 			() => {
 				this.setState((prevState) => ({
 					currentTodoItemId: prevState.currentTodoItemId + 1,
 				}));
+
 				this.todoListStorage.push(newTodoItem);
-				localStorage.setItem(
+
+				setInLocalStorage(
 					this.context?.storageKey as string,
-					JSON.stringify(this.todoListStorage)
+					this.todoListStorage
 				);
 			}
 		);
@@ -118,9 +126,9 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 					return;
 				}
 
-				localStorage.setItem(
+				setInLocalStorage(
 					this.context?.storageKey as string,
-					JSON.stringify(this.todoListStorage)
+					this.todoListStorage
 				);
 			}
 		);
@@ -152,23 +160,11 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 	render() {
 		return (
 			<article className='todo-list'>
-				<TodoListHeader>
-					<h1>{this.props.todoListName}</h1>
-					<button
-						type='button'
-						className='todo-list-add-button'
-						onClick={this.addTodo}
-					>
-						add todo
-					</button>
-					<button
-						type='button'
-						className='todo-list-clear-button'
-						onClick={this.clearTodoList}
-					>
-						clear list
-					</button>
-				</TodoListHeader>
+				<TodoListHeader
+					todoListName={this.props.todoListName}
+					addTodo={this.addTodo}
+					clearTodoList={this.clearTodoList}
+				></TodoListHeader>
 				<TodoListContent>{this.state.todoList}</TodoListContent>
 			</article>
 		);

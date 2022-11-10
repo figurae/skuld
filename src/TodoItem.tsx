@@ -7,6 +7,7 @@ export interface TodoItemData {
 	todoItemName: string;
 	todoItemDescription?: string;
 	todoItemCreated: Date;
+	todoItemEdited?: Date;
 	todoItemCompleted?: Date;
 	todoItemProgress: number;
 	todoItemTags?: Array<number>;

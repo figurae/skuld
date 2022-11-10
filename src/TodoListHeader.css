@@ -2,3 +2,25 @@
 	padding: var(--todo-gap);
 	background-color: firebrick;
 }
+
+.todo-list-header > h1 {
+	font-weight: normal;
+	margin-bottom: var(--todo-gap);
+}
+
+.todo-list-header > form {
+	margin-top: var(--todo-gap);
+}
+
+.todo-list-header > form > button {
+	margin-right: var(--todo-gap);
+}
+
+.todo-input {
+	margin-top: var(--todo-gap);
+	font-size: 12px;
+}
+
+.todo-input > label {
+	margin-right: var(--todo-gap);
+}
