@@ -5,5 +5,5 @@
 	display: flex;
 	justify-content: space-between; /* push todo item footer down */
 	flex-direction: column;
-	background-color: #E7AB79;
+	background-color: #e7ab79;
 }

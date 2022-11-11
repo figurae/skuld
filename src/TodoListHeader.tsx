@@ -3,13 +3,13 @@ import './TodoListHeader.css';
 
 interface ITodoListHeaderProps {
 	todoListName: string;
-	addTodo: (todoName?: string) => void;
+	addTodo: (todoName: string) => void;
 	clearTodoList: () => void;
 }
 
 function TodoListHeader(props: ITodoListHeaderProps) {
-	// useRef seems to not handle clearing input well
 	// TODO: must this be done with onChange after all?
+	// useRef seems not to handle clearing input well
 	// const todoNameRef = useRef<HTMLInputElement>(null);
 	const [todoName, setTodoName] = useState<string>('');
 

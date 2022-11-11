@@ -13,9 +13,10 @@
 	todoTagName: string
 	todoTagItems?: Array<number> */
 // TODO: check ReactElement/JSX.Element (vs ReactNode)
-// TODO: add input for new todos
 // TODO: add todo editing
 // TODO: add tags
+// TODO: validation
+// TODO: refactor adding new todos so that it doesn't add elements directly
 
 import './TodoList.css';
 import TodoItem, { TodoItemData } from './TodoItem';
@@ -73,18 +74,18 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 		});
 	}
 
-	addTodo = (todoName?: string) => {
-		// TODO: handle nulls more gracefully
+	addTodo = (todoName: string) => {
 		const date = new Date();
 
 		const newTodoItem: TodoItemData = {
 			todoItemId: this.state.currentTodoItemId,
-			todoItemName: todoName as string,
+			todoItemName: todoName,
 			todoItemCreated: date,
 			todoItemProgress: 0,
 		};
 
 		this.setState(
+			// TODO: add validation and stuff
 			// append new todo to the current list of ReactNodes
 			(prevState) => ({
 				todoList: [...prevState.todoList, this.convertItemToNode(newTodoItem)],
@@ -103,6 +104,14 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 				);
 			}
 		);
+	};
+
+	editTodoItem = (todoItemId: number, newTodoItemName: string) => {
+		this.todoListStorage.map((item) => {
+			if (item.todoItemId === todoItemId) {
+				item.todoItemName = newTodoItemName;
+			}
+		});
 	};
 
 	deleteTodoItem = (todoItemId: number) => {
@@ -152,6 +161,7 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 			<TodoItem
 				key={item.todoItemId}
 				todoItem={item}
+				editTodoItem={this.editTodoItem}
 				deleteTodoItem={this.deleteTodoItem}
 			></TodoItem>
 		);
