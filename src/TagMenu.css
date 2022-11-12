@@ -1,0 +1,14 @@
+.tag-menu {
+	/* TODO: make this actually stick to the button, in particular when scrolling */
+	z-index: 1;
+	position: absolute;
+	margin-top: var(--todo-gap);
+	padding: var(--todo-gap);
+	border-radius: var(--border-radius);
+	background-color: snow;
+}
+
+.tag-menu > h1 {
+	font-size: 12px;
+	font-weight: normal;
+}

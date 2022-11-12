@@ -33,7 +33,7 @@ function TodoItem(props: TodoItemProps) {
 					type='button'
 					onClick={() => props.deleteTodoItem(props.todoItem.todoItemId)}
 				>
-					X
+					&times;
 				</button>
 
 				{isEditMode ? (
@@ -43,6 +43,7 @@ function TodoItem(props: TodoItemProps) {
 							value={newTodoItemName}
 							onChange={(event) => setNewTodoItemName(event.target.value)}
 							onBlur={() => {
+								// TODO: I think this can be done easier with contentEditable
 								setEditMode(false);
 								props.editTodoItem(props.todoItem.todoItemId, newTodoItemName);
 							}}
@@ -53,11 +54,10 @@ function TodoItem(props: TodoItemProps) {
 					<p onClick={() => setEditMode(true)}>{props.todoItem.todoItemName}</p>
 				)}
 			</TodoItemContent>
-			<TodoItemFooter>
-				<p>
-					added on: {props.todoItem.todoItemCreated.toLocaleString('gb-GB')}
-				</p>
-			</TodoItemFooter>
+			<TodoItemFooter
+				addedOn={props.todoItem.todoItemCreated}
+				todoItemId={props.todoItem.todoItemId}
+			></TodoItemFooter>
 		</article>
 	);
 }

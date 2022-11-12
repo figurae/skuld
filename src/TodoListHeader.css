@@ -4,23 +4,25 @@
 }
 
 .todo-list-header > h1 {
+	font-size: 16px;
 	font-weight: normal;
 	margin-bottom: var(--todo-gap);
 }
 
-.todo-list-header > form {
+.todo-list-header-input {
+	font-size: 12px;
 	margin-top: var(--todo-gap);
 }
 
-.todo-list-header > form > button {
+.todo-list-header-input > * {
 	margin-right: var(--todo-gap);
 }
 
-.todo-input {
-	margin-top: var(--todo-gap);
+.todo-list-header-input > button {
+	padding: 0.15rem 0.2rem 0.2rem;
 	font-size: 12px;
 }
 
-.todo-input > label {
-	margin-right: var(--todo-gap);
+.todo-list-header-input > input {
+	font: inherit;
 }

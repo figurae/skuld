@@ -13,10 +13,10 @@
 	todoTagName: string
 	todoTagItems?: Array<number> */
 // TODO: check ReactElement/JSX.Element (vs ReactNode)
-// TODO: add todo editing
 // TODO: add tags
 // TODO: validation
 // TODO: refactor adding new todos so that it doesn't add elements directly
+// TODO: think about moving everything here to a separate file
 
 import './TodoList.css';
 import TodoItem, { TodoItemData } from './TodoItem';
@@ -31,9 +31,13 @@ interface TodoListProps {
 }
 
 interface TodoListState {
-	// this is the final todoList array with JSX used for rendering
+	// this is the final todoList array containing JSX used for rendering
 	todoList: Array<ReactNode>;
 	currentTodoItemId: number;
+	tagMenu: {
+		state: boolean;
+		todoItemId: number;
+	};
 }
 
 class TodoList extends React.Component<TodoListProps, TodoListState> {
@@ -45,7 +49,11 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 
 	constructor(props: TodoListProps) {
 		super(props);
-		this.state = { todoList: [], currentTodoItemId: 0 };
+		this.state = {
+			todoList: [],
+			currentTodoItemId: 0,
+			tagMenu: { state: false, todoItemId: 0 },
+		};
 	}
 
 	componentDidMount() {
@@ -156,6 +164,12 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 		);
 	};
 
+	// TODO: this doesn't seem like a good place for this or its JSX;
+	// maybe pass it through context from App or a new file?
+	openTagMenu = (todoItemId: number) => {
+		this.setState({ tagMenu: { state: true, todoItemId: todoItemId } });
+	};
+
 	convertItemToNode(item: TodoItemData): ReactNode {
 		return (
 			<TodoItem
@@ -169,14 +183,16 @@ class TodoList extends React.Component<TodoListProps, TodoListState> {
 
 	render() {
 		return (
-			<article className='todo-list'>
-				<TodoListHeader
-					todoListName={this.props.todoListName}
-					addTodo={this.addTodo}
-					clearTodoList={this.clearTodoList}
-				></TodoListHeader>
-				<TodoListContent>{this.state.todoList}</TodoListContent>
-			</article>
+			<>
+				<article className='todo-list'>
+					<TodoListHeader
+						todoListName={this.props.todoListName}
+						addTodo={this.addTodo}
+						clearTodoList={this.clearTodoList}
+					></TodoListHeader>
+					<TodoListContent>{this.state.todoList}</TodoListContent>
+				</article>
+			</>
 		);
 	}
 }

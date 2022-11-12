@@ -16,7 +16,14 @@ function TodoListHeader(props: ITodoListHeaderProps) {
 	return (
 		<div className='todo-list-header'>
 			<h1>{props.todoListName}</h1>
-			<form>
+			<form className='todo-list-header-input'>
+				<label htmlFor='todo-name'>todo name:</label>
+				<input
+					id='todo-name'
+					type='text'
+					value={todoName}
+					onChange={(event) => setTodoName(event.target.value)}
+				/>
 				<button
 					type='button'
 					className='todo-list-add-button'
@@ -34,15 +41,6 @@ function TodoListHeader(props: ITodoListHeaderProps) {
 				>
 					clear list
 				</button>
-				<div className='todo-input'>
-					<label htmlFor='todo-name'>Name</label>
-					<input
-						id='todo-name'
-						type='text'
-						value={todoName}
-						onChange={(event) => setTodoName(event.target.value)}
-					/>
-				</div>
 			</form>
 		</div>
 	);

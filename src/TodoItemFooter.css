@@ -4,11 +4,20 @@
 	border-radius: inherit;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
-	padding: .25rem;
+	padding: 0.15rem 0.25rem 0.75rem;
 	background-color: orange;
 }
 
-.todo-item-footer > p {
+.todo-item-footer-table {
+	width: 100%;
+}
+
+.todo-item-footer-add-tag {
+	font-size: 12px;
+	padding: 0 0.15rem;
+}
+
+.todo-item-footer-added-on {
 	text-align: right;
 	font-size: 12px;
 }
