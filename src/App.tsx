@@ -3,7 +3,7 @@ import Header from './Header';
 import TodoContainer from './TodoContainer';
 import Footer from './Footer';
 import { AppContext, AppContextProps } from './AppContext';
-import { loadTags } from 'TagMenu';
+import { getTags } from 'TagMenu';
 
 function App() {
 	const appContext: AppContextProps = {
@@ -11,10 +11,11 @@ function App() {
 		appVersion: '0.1.0',
 		todoListKey: 'skuld-todos',
 		tagListKey: 'skuld-tags',
-		tagListStorage: null,
+		tagListStorage: [],
+		currentTagId: 0,
 	};
 
-	loadTags(appContext);
+	appContext.tagListStorage = getTags(appContext.tagListKey);
 
 	return (
 		<>

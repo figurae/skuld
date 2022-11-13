@@ -1,4 +1,4 @@
-import { AppContext, AppContextProps, TagListProps } from 'AppContext';
+import { AppContext, AppContextProps, TagProps } from 'AppContext';
 import {
 	Dispatch,
 	ReactNode,
@@ -18,19 +18,23 @@ interface TagMenuProps {
 }
 
 export function saveTags(appContext: AppContextProps) {
-	if (appContext !== null && appContext.tagListStorage !== null) {
-		setInLocalStorage(appContext.tagListKey, appContext.tagListStorage);
-	}
+	setInLocalStorage(appContext.tagListKey, appContext.tagListStorage);
 }
 
-export function loadTags(appContext: AppContextProps) {
-	if (appContext !== null) {
-		appContext.tagListStorage = getFromLocalStorage(appContext.tagListKey);
-	}
+export function getTags(tagListKey: string): Array<TagProps> {
+	const storedTagList = getFromLocalStorage(tagListKey);
+
+	return storedTagList ? storedTagList : [];
+}
+
+export function addNewTag(appContext: AppContextProps, newTag: TagProps) {
+	appContext.tagListStorage.push(newTag);
+
+	saveTags(appContext);
 }
 
 // OPTIMIZE: think about generalizing to-node conversion
-function convertTagsToNodes(tagListStorage: TagListProps): Array<ReactNode> {
+function convertTagsToNodes(tagListStorage: Array<TagProps>): Array<ReactNode> {
 	const tagListNodes: Array<ReactNode> = [];
 
 	if (tagListStorage !== null) {
@@ -47,13 +51,11 @@ function TagMenu(props: TagMenuProps) {
 	const { onClickOutside } = props;
 	const appContext = useContext(AppContext);
 	const [newTag, setNewTag] = useState<string>('');
+	const [currentTagId, setCurrentTagId] = useState<number>(0);
 
 	let tagListNodes = null;
-	// TODO: this is pretty sus, why both null/undefined check and 'as TagListProps'?
-	if (appContext?.tagListStorage !== null || undefined) {
-		tagListNodes = convertTagsToNodes(
-			appContext?.tagListStorage as TagListProps
-		);
+	if (appContext !== null) {
+		tagListNodes = convertTagsToNodes(appContext.tagListStorage);
 	}
 
 	useEffect(() => {
@@ -76,13 +78,28 @@ function TagMenu(props: TagMenuProps) {
 		<aside className='tag-menu' ref={tagMenu}>
 			<h1>select tags:</h1>
 			{tagListNodes}
-			<form>
+			<form className='tag-menu-form'>
 				<input
 					className='tag-menu-input'
 					value={newTag}
 					onChange={(event) => setNewTag(event.target.value)}
 				></input>
-				<button type='button'>add tag</button>
+				<button
+					className='tag-menu-button'
+					type='button'
+					onClick={() => {
+						if (appContext !== null) {
+							addNewTag(appContext, {
+								tagId: currentTagId,
+								tagName: newTag,
+								tagTodos: [],
+							});
+						}
+						setCurrentTagId(1);
+					}}
+				>
+					add
+				</button>
 			</form>
 		</aside>
 	);

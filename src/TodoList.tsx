@@ -16,7 +16,7 @@
 // TODO: add tags
 // TODO: add confirmation when deleting/clearing
 // TODO: add undo
-// TODO: validation (+ double check all null checks)
+// TODO: validation, duplicates (+ double check all null checks)
 // TODO: refactor adding new todos so that it doesn't add elements directly
 // TODO: think about moving everything here to a separate file
 // TODO: graphic design

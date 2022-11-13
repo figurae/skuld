@@ -1,9 +1,9 @@
 import React from 'react';
 
-export interface TagListProps {
+export interface TagProps {
 	tagId: number;
 	tagName: string;
-	tagTodos?: Array<number>;
+	tagTodos: Array<number>;
 }
 
 export interface AppContextProps {
@@ -11,7 +11,8 @@ export interface AppContextProps {
 	appVersion: string;
 	todoListKey: string;
 	tagListKey: string;
-	tagListStorage: TagListProps | null;
+	tagListStorage: Array<TagProps>;
+	currentTagId: number;
 }
 
 export const AppContext = React.createContext<AppContextProps | null>(null);
