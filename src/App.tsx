@@ -2,14 +2,19 @@ import './App.css';
 import Header from './Header';
 import TodoContainer from './TodoContainer';
 import Footer from './Footer';
-import { AppContext, IAppContext } from './AppContext';
+import { AppContext, AppContextProps } from './AppContext';
+import { loadTags } from 'TagMenu';
 
 function App() {
-	const appContext: IAppContext = {
+	const appContext: AppContextProps = {
 		appName: 'skuld',
 		appVersion: '0.1.0',
-		storageKey: 'skuld-storage',
+		todoListKey: 'skuld-todos',
+		tagListKey: 'skuld-tags',
+		tagListStorage: null,
 	};
+
+	loadTags(appContext);
 
 	return (
 		<>

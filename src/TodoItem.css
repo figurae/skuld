@@ -1,4 +1,7 @@
 .todo-item {
+	/* become a wrapper for the tag menu */
+	position: relative;
+
 	min-width: 10rem;
 	border-radius: var(--border-radius);
 	/* make a vertical flexbox for todo item content */

@@ -1,9 +1,17 @@
 import React from 'react';
 
-export interface IAppContext {
-	appName: string;
-	appVersion: string;
-	storageKey: string;
+export interface TagListProps {
+	tagId: number;
+	tagName: string;
+	tagTodos?: Array<number>;
 }
 
-export const AppContext = React.createContext<IAppContext | null>(null);
+export interface AppContextProps {
+	appName: string;
+	appVersion: string;
+	todoListKey: string;
+	tagListKey: string;
+	tagListStorage: TagListProps | null;
+}
+
+export const AppContext = React.createContext<AppContextProps | null>(null);

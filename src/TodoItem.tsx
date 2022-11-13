@@ -43,7 +43,8 @@ function TodoItem(props: TodoItemProps) {
 							value={newTodoItemName}
 							onChange={(event) => setNewTodoItemName(event.target.value)}
 							onBlur={() => {
-								// TODO: I think this can be done easier with contentEditable
+								// TODO: move this to the details pane when it's ready
+								// I think this can be done easier with contentEditable
 								setEditMode(false);
 								props.editTodoItem(props.todoItem.todoItemId, newTodoItemName);
 							}}

@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import TagMenu from 'TagMenu';
+import { AppContext } from 'AppContext';
+import { useContext, useState } from 'react';
+import TagMenu, { saveTags } from 'TagMenu';
 import './TodoItemFooter.css';
 
 interface TodoItemFooterProps {
@@ -8,12 +9,20 @@ interface TodoItemFooterProps {
 }
 
 function TodoItemFooter(props: TodoItemFooterProps) {
+	const appContext = useContext(AppContext);
 	const [tagMenuState, setTagMenuState] = useState(false);
 
 	const tagMenu = tagMenuState ? (
 		<TagMenu
 			todoItemId={props.todoItemId}
 			setTagMenuState={setTagMenuState}
+			onClickOutside={() => {
+				if (appContext !== null) {
+					saveTags(appContext);
+				}
+
+				setTagMenuState(false);
+			}}
 		></TagMenu>
 	) : null;
 
@@ -26,9 +35,10 @@ function TodoItemFooter(props: TodoItemFooterProps) {
 							<button
 								className='todo-item-footer-add-tag'
 								type='button'
+								disabled={tagMenuState}
 								onClick={() => setTagMenuState(true)}
 							>
-								add tag
+								tags
 							</button>
 							{tagMenu}
 						</td>

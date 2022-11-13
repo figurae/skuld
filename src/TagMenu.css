@@ -1,8 +1,10 @@
 .tag-menu {
-	/* TODO: make this actually stick to the button, in particular when scrolling */
+	/* pop the tag menu out */
+	/* NOTE: todo-item is the wrapper */
 	z-index: 1;
 	position: absolute;
-	margin-top: var(--todo-gap);
+	top: 3.5rem;
+
 	padding: var(--todo-gap);
 	border-radius: var(--border-radius);
 	background-color: snow;
