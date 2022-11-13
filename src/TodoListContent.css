@@ -3,6 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
+	height: 100%;
 	padding: 2% 5%;
 	gap: var(--todo-gap);
 	overflow-y: auto; /* make todo list content scrollable vertically */
