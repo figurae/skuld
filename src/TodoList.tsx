@@ -14,10 +14,12 @@
 	tagTodos?: Array<number> */
 // TODO: check ReactElement/JSX.Element (vs ReactNode)
 // TODO: add tags
+// TODO: add reordering
 // TODO: add confirmation when deleting/clearing
 // TODO: add undo
 // TODO: validation, duplicates (+ double check all null checks)
 // TODO: refactor adding new todos so that it doesn't add elements directly
+// TODO: refactor todo and tag handling to be more analogous
 // TODO: think about moving everything here to a separate file
 // TODO: graphic design
 // TODO: make it reactive

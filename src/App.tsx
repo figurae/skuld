@@ -16,7 +16,10 @@ function App() {
 	};
 
 	appContext.tagListStorage = getTags(appContext.tagListKey);
-
+	if (appContext.tagListStorage.length > 0) {
+		appContext.currentTagId =
+			appContext.tagListStorage[appContext.tagListStorage.length - 1].tagId + 1;
+	}
 	return (
 		<>
 			<AppContext.Provider value={appContext}>

@@ -8,6 +8,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import TagItem from 'TagItem';
 import { getFromLocalStorage, setInLocalStorage } from './LocalStorageHelper';
 import './TagMenu.css';
 
@@ -18,7 +19,9 @@ interface TagMenuProps {
 }
 
 export function saveTags(appContext: AppContextProps) {
-	setInLocalStorage(appContext.tagListKey, appContext.tagListStorage);
+	if (appContext.tagListStorage.length > 0) {
+		setInLocalStorage(appContext.tagListKey, appContext.tagListStorage);
+	}
 }
 
 export function getTags(tagListKey: string): Array<TagProps> {
@@ -33,30 +36,12 @@ export function addNewTag(appContext: AppContextProps, newTag: TagProps) {
 	saveTags(appContext);
 }
 
-// OPTIMIZE: think about generalizing to-node conversion
-function convertTagsToNodes(tagListStorage: Array<TagProps>): Array<ReactNode> {
-	const tagListNodes: Array<ReactNode> = [];
-
-	if (tagListStorage !== null) {
-		for (const item of Object.values(tagListStorage)) {
-			tagListNodes.push(<p>{item.tagName}</p>);
-		}
-	}
-
-	return tagListNodes;
-}
-
+// OPTIMIZE: this should be easier to manage as a class
 function TagMenu(props: TagMenuProps) {
 	const tagMenu = useRef<HTMLElement>(null);
 	const { onClickOutside } = props;
 	const appContext = useContext(AppContext);
 	const [newTag, setNewTag] = useState<string>('');
-	const [currentTagId, setCurrentTagId] = useState<number>(0);
-
-	let tagListNodes = null;
-	if (appContext !== null) {
-		tagListNodes = convertTagsToNodes(appContext.tagListStorage);
-	}
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -74,6 +59,30 @@ function TagMenu(props: TagMenuProps) {
 		};
 	}, [onClickOutside]);
 
+	// OPTIMIZE: think about generalizing/automating to-node conversion
+	const tagListNodes: Array<ReactNode> = [];
+
+	if (appContext !== null) {
+		for (const item of appContext.tagListStorage) {
+			let checked = false;
+
+			if (item.tagTodos.includes(props.todoItemId)) {
+				checked = true;
+			}
+
+			tagListNodes.push(
+				<TagItem
+					key={item.tagId}
+					checked={checked}
+					todoItemId={props.todoItemId}
+					tagId={item.tagId}
+					tagName={item.tagName}
+					tagTodos={item.tagTodos}
+				></TagItem>
+			);
+		}
+	}
+
 	return (
 		<aside className='tag-menu' ref={tagMenu}>
 			<h1>select tags:</h1>
@@ -88,14 +97,17 @@ function TagMenu(props: TagMenuProps) {
 					className='tag-menu-button'
 					type='button'
 					onClick={() => {
+						// TODO: refactor this into a separate function
 						if (appContext !== null) {
 							addNewTag(appContext, {
-								tagId: currentTagId,
+								tagId: appContext.currentTagId,
 								tagName: newTag,
-								tagTodos: [],
+								tagTodos: [props.todoItemId],
 							});
+
+							appContext.currentTagId += 1;
+							setNewTag('');
 						}
-						setCurrentTagId(1);
 					}}
 				>
 					add

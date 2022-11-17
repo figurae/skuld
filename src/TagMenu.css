@@ -13,6 +13,7 @@
 .tag-menu > h1 {
 	font-size: 12px;
 	font-weight: normal;
+	margin-bottom: 0.5rem;
 }
 
 .tag-menu-input {

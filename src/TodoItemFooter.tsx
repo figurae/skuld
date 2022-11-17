@@ -17,6 +17,7 @@ function TodoItemFooter(props: TodoItemFooterProps) {
 			todoItemId={props.todoItemId}
 			setTagMenuState={setTagMenuState}
 			onClickOutside={() => {
+				// TODO: check if tags have changed
 				if (appContext !== null) {
 					saveTags(appContext);
 				}
