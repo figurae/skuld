@@ -1,20 +1,20 @@
-import { AppContext } from 'AppContext';
+import { AppContext } from 'contexts/AppContext';
 import { useContext, useState } from 'react';
-import TagMenu, { saveTags } from 'TagMenu';
-import './TodoItemFooter.css';
+import TagMenu, { saveTags } from 'components/tagmenu/TagMenu';
+import './ItemFooter.css';
 
-interface TodoItemFooterProps {
+interface ItemFooterProps {
 	addedOn: Date;
-	todoItemId: number;
+	itemId: number;
 }
 
-function TodoItemFooter(props: TodoItemFooterProps) {
+function ItemFooter(props: ItemFooterProps) {
 	const appContext = useContext(AppContext);
 	const [tagMenuState, setTagMenuState] = useState(false);
 
 	const tagMenu = tagMenuState ? (
 		<TagMenu
-			todoItemId={props.todoItemId}
+			itemId={props.itemId}
 			setTagMenuState={setTagMenuState}
 			onClickOutside={() => {
 				// TODO: check if tags have changed
@@ -28,13 +28,13 @@ function TodoItemFooter(props: TodoItemFooterProps) {
 	) : null;
 
 	return (
-		<div className='todo-item-footer'>
-			<table className='todo-item-footer-table'>
+		<div className='item-footer'>
+			<table className='item-footer-table'>
 				<tbody>
 					<tr>
 						<td>
 							<button
-								className='todo-item-footer-add-tag'
+								className='item-footer-add-tag'
 								type='button'
 								disabled={tagMenuState}
 								onClick={() => setTagMenuState(true)}
@@ -43,7 +43,7 @@ function TodoItemFooter(props: TodoItemFooterProps) {
 							</button>
 							{tagMenu}
 						</td>
-						<td className='todo-item-footer-added-on'>
+						<td className='item-footer-added-on'>
 							{/* FIXME: stopped working recently, investigate */}
 							added on: {props.addedOn.toLocaleString()}
 						</td>
@@ -54,4 +54,4 @@ function TodoItemFooter(props: TodoItemFooterProps) {
 	);
 }
 
-export default TodoItemFooter;
+export default ItemFooter;

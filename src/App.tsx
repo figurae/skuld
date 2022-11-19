@@ -1,33 +1,33 @@
 import './App.css';
-import Header from './Header';
-import TodoContainer from './TodoContainer';
-import Footer from './Footer';
-import { AppContext, AppContextProps } from './AppContext';
-import { getTags } from 'TagMenu';
+import Main from 'components/Main';
+import Header from 'components/app/Header';
+import Footer from 'components/app/Footer';
+import { AppContext, AppContextProps } from './contexts/AppContext';
+import { getTags } from 'components/tagmenu/TagMenu';
 
 function App() {
+	// TODO: split AppContext
+	// TODO: introduce reducers
 	const appContext: AppContextProps = {
 		appName: 'skuld',
 		appVersion: '0.1.0',
-		todoListKey: 'skuld-todos',
-		tagListKey: 'skuld-tags',
-		tagListStorage: [],
+		todoStorageKey: 'skuld-items',
+		tagStorageKey: 'skuld-tags',
+		tagStorage: [],
 		currentTagId: 0,
 	};
 
-	appContext.tagListStorage = getTags(appContext.tagListKey);
-	if (appContext.tagListStorage.length > 0) {
+	appContext.tagStorage = getTags(appContext.tagStorageKey);
+	if (appContext.tagStorage.length > 0) {
 		appContext.currentTagId =
-			appContext.tagListStorage[appContext.tagListStorage.length - 1].tagId + 1;
+			appContext.tagStorage[appContext.tagStorage.length - 1].tagId + 1;
 	}
 	return (
-		<>
-			<AppContext.Provider value={appContext}>
-				<Header></Header>
-				<TodoContainer></TodoContainer>
-				<Footer></Footer>
-			</AppContext.Provider>
-		</>
+		<AppContext.Provider value={appContext}>
+			<Header></Header>
+			<Main></Main>
+			<Footer></Footer>
+		</AppContext.Provider>
 	);
 }
 

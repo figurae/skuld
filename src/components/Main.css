@@ -1,4 +1,4 @@
-.todo-container {
+.main {
 	min-height: 0; /* make todo-container not overflow layout-container */
 	flex-grow: 1; /* fill space between header and footer */
 	/* make a horizontal flexbox for todo interface and content */

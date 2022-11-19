@@ -1,4 +1,4 @@
-.todo-item-footer {
+.item-footer {
 	overflow: hidden;
 	height: 1rem;
 	border-radius: inherit;
@@ -8,16 +8,16 @@
 	background-color: orange;
 }
 
-.todo-item-footer-table {
+.item-footer-table {
 	width: 100%;
 }
 
-.todo-item-footer-add-tag {
+.item-footer-add-tag {
 	font-size: 12px;
 	padding: 0 0.15rem;
 }
 
-.todo-item-footer-added-on {
+.item-footer-added-on {
 	text-align: right;
 	font-size: 12px;
 }

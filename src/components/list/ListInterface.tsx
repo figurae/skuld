@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import './TodoListHeader.css';
+import './ListInterface.css';
 
-interface ITodoListHeaderProps {
-	todoListName: string;
+interface ListInterfaceProps {
+	name: string;
 	addTodo: (todoName: string) => void;
-	clearTodoList: () => void;
+	clearList: () => void;
 }
 
-function TodoListHeader(props: ITodoListHeaderProps) {
+function ListInterface(props: ListInterfaceProps) {
 	// TODO: must this be done with onChange after all?
 	// useRef seems not to handle clearing input well
 	// const todoNameRef = useRef<HTMLInputElement>(null);
 	const [todoName, setTodoName] = useState<string>('');
 
 	return (
-		<div className='todo-list-header'>
-			<h1>{props.todoListName}</h1>
-			<form className='todo-list-header-input'>
+		<div className='list-interface'>
+			<h1>{props.name}</h1>
+			<form className='list-interface-input'>
 				<label htmlFor='todo-name'>todo name:</label>
 				<input
 					id='todo-name'
@@ -37,7 +37,7 @@ function TodoListHeader(props: ITodoListHeaderProps) {
 				<button
 					type='button'
 					className='todo-list-clear-button'
-					onClick={props.clearTodoList}
+					onClick={props.clearList}
 				>
 					clear list
 				</button>
@@ -46,4 +46,4 @@ function TodoListHeader(props: ITodoListHeaderProps) {
 	);
 }
 
-export default TodoListHeader;
+export default ListInterface;

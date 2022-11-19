@@ -3,7 +3,7 @@ import React from 'react';
 export interface TagProps {
 	tagId: number;
 	tagName: string;
-	tagTodos: Array<number>;
+	tagItems: Array<number>;
 }
 
 export interface AppContextProps {

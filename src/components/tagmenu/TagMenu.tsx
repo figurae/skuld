@@ -1,4 +1,4 @@
-import { AppContext, AppContextProps, TagProps } from 'AppContext';
+import { AppContext, AppContextProps, TagProps } from 'contexts/AppContext';
 import {
 	Dispatch,
 	ReactNode,
@@ -8,19 +8,22 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import TagItem from 'TagItem';
-import { getFromLocalStorage, setInLocalStorage } from './LocalStorageHelper';
+import TagMenuItem from './TagMenuItem';
+import {
+	getFromLocalStorage,
+	setInLocalStorage,
+} from 'helpers/LocalStorageHelper';
 import './TagMenu.css';
 
 interface TagMenuProps {
-	todoItemId: number;
+	itemId: number;
 	setTagMenuState: Dispatch<SetStateAction<boolean>>;
 	onClickOutside: () => void;
 }
 
 export function saveTags(appContext: AppContextProps) {
-	if (appContext.tagListStorage.length > 0) {
-		setInLocalStorage(appContext.tagListKey, appContext.tagListStorage);
+	if (appContext.tagStorage.length > 0) {
+		setInLocalStorage(appContext.tagStorageKey, appContext.tagStorage);
 	}
 }
 
@@ -31,7 +34,7 @@ export function getTags(tagListKey: string): Array<TagProps> {
 }
 
 export function addNewTag(appContext: AppContextProps, newTag: TagProps) {
-	appContext.tagListStorage.push(newTag);
+	appContext.tagStorage.push(newTag);
 
 	saveTags(appContext);
 }
@@ -63,22 +66,22 @@ function TagMenu(props: TagMenuProps) {
 	const tagListNodes: Array<ReactNode> = [];
 
 	if (appContext !== null) {
-		for (const item of appContext.tagListStorage) {
+		for (const item of appContext.tagStorage) {
 			let checked = false;
 
-			if (item.tagTodos.includes(props.todoItemId)) {
+			if (item.tagItems.includes(props.itemId)) {
 				checked = true;
 			}
 
 			tagListNodes.push(
-				<TagItem
+				<TagMenuItem
 					key={item.tagId}
 					checked={checked}
-					todoItemId={props.todoItemId}
+					todoItemId={props.itemId}
 					tagId={item.tagId}
 					tagName={item.tagName}
-					tagTodos={item.tagTodos}
-				></TagItem>
+					tagItems={item.tagItems}
+				></TagMenuItem>
 			);
 		}
 	}
@@ -102,7 +105,7 @@ function TagMenu(props: TagMenuProps) {
 							addNewTag(appContext, {
 								tagId: appContext.currentTagId,
 								tagName: newTag,
-								tagTodos: [props.todoItemId],
+								tagItems: [props.itemId],
 							});
 
 							appContext.currentTagId += 1;

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
-import { AppContext, TagProps } from 'AppContext';
-import './TagItem.css';
-import { saveTags } from 'TagMenu';
+import { AppContext, TagProps } from 'contexts/AppContext';
+import './TagMenuItem.css';
+import { saveTags } from 'components/tagmenu/TagMenu';
 
 interface TagItemProps extends TagProps {
 	checked: boolean;
@@ -19,16 +19,16 @@ function switchTag(tagId: number, todoItemId: number, tagTodos: Array<number>) {
 	}
 }
 
-function TagItem(props: TagItemProps) {
+function TagMenuItem(props: TagItemProps) {
 	const appContext = useContext(AppContext);
 
 	const [checked, setChecked] = useState(props.checked);
-	const className = 'tag-item-checkbox';
+	const className = 'tag-menu-item-checkbox';
 	// TODO: generalize this
 	const forPrefix = className + '-';
 
 	return (
-		<form className='tag-item'>
+		<form className='tag-menu-item'>
 			<input
 				id={forPrefix + props.tagId}
 				type='checkbox'
@@ -40,18 +40,18 @@ function TagItem(props: TagItemProps) {
 						switchTag(
 							props.tagId,
 							props.todoItemId,
-							appContext.tagListStorage[props.tagId].tagTodos
+							appContext.tagStorage[props.tagId].tagItems
 						);
 						setChecked(!checked);
 						saveTags(appContext);
 					}
 				}}
 			/>
-			<label className='tag-item-label' htmlFor={forPrefix + props.tagId}>
+			<label className='tag-menu-item-label' htmlFor={forPrefix + props.tagId}>
 				{props.tagName}
 			</label>
 		</form>
 	);
 }
 
-export default TagItem;
+export default TagMenuItem;

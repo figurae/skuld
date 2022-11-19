@@ -1,9 +1,9 @@
-.todo-details {
+.selector {
 	padding: var(--todo-gap);
-	background-color: olive;
+	background-color: #774360;
 }
 
-.todo-details > h1 {
+.selector > h1 {
 	font-size: 16px;
 	font-weight: normal;
 }

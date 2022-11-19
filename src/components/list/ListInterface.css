@@ -1,28 +1,28 @@
-.todo-list-header {
+.list-interface {
 	padding: var(--todo-gap);
 	background-color: firebrick;
 }
 
-.todo-list-header > h1 {
+.list-interface > h1 {
 	font-size: 16px;
 	font-weight: normal;
 	margin-bottom: var(--todo-gap);
 }
 
-.todo-list-header-input {
+.list-interface-input {
 	font-size: 12px;
 	margin-top: var(--todo-gap);
 }
 
-.todo-list-header-input > * {
+.list-interface-input > * {
 	margin-right: var(--todo-gap);
 }
 
-.todo-list-header-input > button {
+.list-interface-input > button {
 	padding: 0.15rem 0.2rem 0.2rem;
 	font-size: 12px;
 }
 
-.todo-list-header-input > input {
+.list-interface-input > input {
 	font: inherit;
 }
