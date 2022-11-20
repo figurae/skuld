@@ -1,4 +1,4 @@
-import './Details.css';
+import 'css/Details.css';
 
 function Details() {
 	return (

@@ -1,9 +1,9 @@
 // TODO: think about restructuring this component
 
 import { useState } from 'react';
-import './Item.css';
-import ItemHeader from './ItemHeader';
-import ItemFooter from './ItemFooter';
+import 'css/Item.css';
+import ItemHeader from 'components/item/ItemHeader';
+import ItemFooter from 'components/item/ItemFooter';
 
 export interface ItemData {
 	itemId: number;

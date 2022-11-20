@@ -7,40 +7,15 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import './TagMenu.css';
-import TagMenuItem from './TagMenuItem';
-import {
-	StorageContext,
-	StorageProps,
-	TagProps,
-} from 'contexts/StorageContext';
-import {
-	getFromLocalStorage,
-	setInLocalStorage,
-} from 'helpers/LocalStorageHelper';
+import 'css/TagMenu.css';
+import TagMenuItem from 'components/tag-menu/TagMenuItem';
+import { StorageContext } from 'contexts/storage';
+import { addNewTag } from 'helpers/tag-management';
 
 interface TagMenuProps {
 	itemId: number;
 	setTagMenuState: Dispatch<SetStateAction<boolean>>;
 	onClickOutside: () => void;
-}
-
-export function saveTags(storageContext: StorageProps) {
-	if (storageContext.tagStorage.length > 0) {
-		setInLocalStorage(storageContext.tagStorageKey, storageContext.tagStorage);
-	}
-}
-
-export function getTags(tagListKey: string): Array<TagProps> {
-	const storedTagList = getFromLocalStorage(tagListKey);
-
-	return storedTagList ? storedTagList : [];
-}
-
-export function addNewTag(storageContext: StorageProps, newTag: TagProps) {
-	storageContext.tagStorage.push(newTag);
-
-	saveTags(storageContext);
 }
 
 // OPTIMIZE: this should be easier to manage as a class

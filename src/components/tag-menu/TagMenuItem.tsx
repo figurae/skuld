@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
-import './TagMenuItem.css';
-import { StorageContext, TagProps } from 'contexts/StorageContext';
-import { saveTags } from 'components/tagmenu/TagMenu';
+import 'css/TagMenuItem.css';
+import { StorageContext, TagProps } from 'contexts/storage';
+import { storeTags } from 'helpers/tag-management';
 
 interface TagItemProps extends TagProps {
 	checked: boolean;
@@ -43,7 +43,7 @@ function TagMenuItem(props: TagItemProps) {
 							storageContext.tagStorage[props.tagId].tagItems
 						);
 						setChecked(!checked);
-						saveTags(storageContext);
+						storeTags(storageContext);
 					}
 				}}
 			/>

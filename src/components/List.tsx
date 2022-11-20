@@ -27,14 +27,11 @@
 // TODO: make it reactive
 
 import React, { ReactNode } from 'react';
-import './List.css';
-import ListInterface from './ListInterface';
+import 'css/List.css';
+import ListInterface from 'components/list/ListInterface';
 import Item, { ItemData } from 'components/item/Item';
-import { StorageContext } from 'contexts/StorageContext';
-import {
-	setInLocalStorage,
-	getFromLocalStorage,
-} from 'helpers/LocalStorageHelper';
+import { StorageContext } from 'contexts/storage';
+import { setInLocalStorage, getFromLocalStorage } from 'helpers/local-storage';
 
 interface ListProps {
 	name: string;

@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from 'react';
-import './Selector.css';
-import { StorageContext } from 'contexts/StorageContext';
+import 'css/Selector.css';
+import { StorageContext } from 'contexts/storage';
 
 function Selector() {
 	console.log('triggered Selector()');

@@ -1,10 +1,10 @@
-import './App.css';
+import 'css/App.css';
 import Main from 'components/Main';
 import Header from 'components/app/Header';
 import Footer from 'components/app/Footer';
-import { AppContext, AppContextProps } from './contexts/AppContext';
-import { StorageContext, StorageProps } from 'contexts/StorageContext';
-import { getTags } from 'components/tagmenu/TagMenu';
+import { AppContext, AppContextProps } from 'contexts/app';
+import { StorageContext, StorageProps } from 'contexts/storage';
+import { getTags } from 'helpers/tag-management';
 
 function App() {
 	// TODO: split AppContext

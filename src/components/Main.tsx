@@ -1,7 +1,7 @@
-import './Main.css';
-import Selector from './selector/Selector';
-import List from './list/List';
-import Details from './details/Details';
+import 'css/Main.css';
+import Selector from 'components/Selector';
+import List from 'components/List';
+import Details from 'components/Details';
 
 function Main() {
 	return (
