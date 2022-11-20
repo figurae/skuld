@@ -1,14 +1,14 @@
-import { AppContext } from 'contexts/AppContext';
 import { ReactNode, useContext } from 'react';
 import './Selector.css';
+import { StorageContext } from 'contexts/StorageContext';
 
 function Selector() {
 	console.log('triggered Selector()');
-	const appContext = useContext(AppContext);
+	const storageContext = useContext(StorageContext);
 
 	const tagListNodes: Array<ReactNode> = [];
-	if (appContext !== null) {
-		for (const item of appContext.tagStorage) {
+	if (storageContext !== null) {
+		for (const item of storageContext.tagStorage) {
 			tagListNodes.push(<p key={item.tagId}>{item.tagName}</p>);
 		}
 	}

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { AppContext, TagProps } from 'contexts/AppContext';
 import './TagMenuItem.css';
+import { StorageContext, TagProps } from 'contexts/StorageContext';
 import { saveTags } from 'components/tagmenu/TagMenu';
 
 interface TagItemProps extends TagProps {
@@ -20,7 +20,7 @@ function switchTag(tagId: number, todoItemId: number, tagTodos: Array<number>) {
 }
 
 function TagMenuItem(props: TagItemProps) {
-	const appContext = useContext(AppContext);
+	const storageContext = useContext(StorageContext);
 
 	const [checked, setChecked] = useState(props.checked);
 	const className = 'tag-menu-item-checkbox';
@@ -36,14 +36,14 @@ function TagMenuItem(props: TagItemProps) {
 				checked={checked}
 				onChange={() => {
 					// OPTIMIZE: move this to TagMenu
-					if (appContext !== null) {
+					if (storageContext !== null) {
 						switchTag(
 							props.tagId,
 							props.todoItemId,
-							appContext.tagStorage[props.tagId].tagItems
+							storageContext.tagStorage[props.tagId].tagItems
 						);
 						setChecked(!checked);
-						saveTags(appContext);
+						saveTags(storageContext);
 					}
 				}}
 			/>

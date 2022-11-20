@@ -26,11 +26,11 @@
 // TODO: graphic design
 // TODO: make it reactive
 
-import './List.css';
-import Item, { ItemData } from 'components/item/Item';
-import ListInterface from './ListInterface';
 import React, { ReactNode } from 'react';
-import { AppContext } from 'contexts/AppContext';
+import './List.css';
+import ListInterface from './ListInterface';
+import Item, { ItemData } from 'components/item/Item';
+import { StorageContext } from 'contexts/StorageContext';
 import {
 	setInLocalStorage,
 	getFromLocalStorage,
@@ -51,8 +51,8 @@ interface TodoListState {
 }
 
 class List extends React.Component<ListProps, TodoListState> {
-	static contextType = AppContext;
-	context!: React.ContextType<typeof AppContext>;
+	static contextType = StorageContext;
+	context!: React.ContextType<typeof StorageContext>;
 
 	// this is the todoList saved in localStorage, pure data without JSX
 	listStorage: Array<ItemData> = [];

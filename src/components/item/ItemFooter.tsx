@@ -1,7 +1,7 @@
-import { AppContext } from 'contexts/AppContext';
 import { useContext, useState } from 'react';
-import TagMenu, { saveTags } from 'components/tagmenu/TagMenu';
 import './ItemFooter.css';
+import { StorageContext } from 'contexts/StorageContext';
+import TagMenu, { saveTags } from 'components/tagmenu/TagMenu';
 
 interface ItemFooterProps {
 	addedOn: Date;
@@ -9,7 +9,7 @@ interface ItemFooterProps {
 }
 
 function ItemFooter(props: ItemFooterProps) {
-	const appContext = useContext(AppContext);
+	const storageContext = useContext(StorageContext);
 	const [tagMenuState, setTagMenuState] = useState(false);
 
 	const tagMenu = tagMenuState ? (
@@ -18,8 +18,8 @@ function ItemFooter(props: ItemFooterProps) {
 			setTagMenuState={setTagMenuState}
 			onClickOutside={() => {
 				// TODO: check if tags have changed
-				if (appContext !== null) {
-					saveTags(appContext);
+				if (storageContext !== null) {
+					saveTags(storageContext);
 				}
 
 				setTagMenuState(false);

@@ -1,4 +1,3 @@
-import { AppContext, AppContextProps, TagProps } from 'contexts/AppContext';
 import {
 	Dispatch,
 	ReactNode,
@@ -8,12 +7,17 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import './TagMenu.css';
 import TagMenuItem from './TagMenuItem';
+import {
+	StorageContext,
+	StorageProps,
+	TagProps,
+} from 'contexts/StorageContext';
 import {
 	getFromLocalStorage,
 	setInLocalStorage,
 } from 'helpers/LocalStorageHelper';
-import './TagMenu.css';
 
 interface TagMenuProps {
 	itemId: number;
@@ -21,9 +25,9 @@ interface TagMenuProps {
 	onClickOutside: () => void;
 }
 
-export function saveTags(appContext: AppContextProps) {
-	if (appContext.tagStorage.length > 0) {
-		setInLocalStorage(appContext.tagStorageKey, appContext.tagStorage);
+export function saveTags(storageContext: StorageProps) {
+	if (storageContext.tagStorage.length > 0) {
+		setInLocalStorage(storageContext.tagStorageKey, storageContext.tagStorage);
 	}
 }
 
@@ -33,17 +37,17 @@ export function getTags(tagListKey: string): Array<TagProps> {
 	return storedTagList ? storedTagList : [];
 }
 
-export function addNewTag(appContext: AppContextProps, newTag: TagProps) {
-	appContext.tagStorage.push(newTag);
+export function addNewTag(storageContext: StorageProps, newTag: TagProps) {
+	storageContext.tagStorage.push(newTag);
 
-	saveTags(appContext);
+	saveTags(storageContext);
 }
 
 // OPTIMIZE: this should be easier to manage as a class
 function TagMenu(props: TagMenuProps) {
 	const tagMenu = useRef<HTMLElement>(null);
 	const { onClickOutside } = props;
-	const appContext = useContext(AppContext);
+	const storageContext = useContext(StorageContext);
 	const [newTag, setNewTag] = useState<string>('');
 
 	useEffect(() => {
@@ -65,8 +69,8 @@ function TagMenu(props: TagMenuProps) {
 	// OPTIMIZE: think about generalizing/automating to-node conversion
 	const tagListNodes: Array<ReactNode> = [];
 
-	if (appContext !== null) {
-		for (const item of appContext.tagStorage) {
+	if (storageContext !== null) {
+		for (const item of storageContext.tagStorage) {
 			let checked = false;
 
 			if (item.tagItems.includes(props.itemId)) {
@@ -101,14 +105,14 @@ function TagMenu(props: TagMenuProps) {
 					type='button'
 					onClick={() => {
 						// TODO: refactor this into a separate function
-						if (appContext !== null) {
-							addNewTag(appContext, {
-								tagId: appContext.currentTagId,
+						if (storageContext !== null) {
+							addNewTag(storageContext, {
+								tagId: storageContext.currentTagId,
 								tagName: newTag,
 								tagItems: [props.itemId],
 							});
 
-							appContext.currentTagId += 1;
+							storageContext.currentTagId += 1;
 							setNewTag('');
 						}
 					}}
