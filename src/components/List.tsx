@@ -11,7 +11,7 @@
 		key: skuld-tags
 	tagId: number
 	tagName: string
-	tagItems?: Array<number> */
+	tagItems: Array<number> */
 // TODO: check ReactElement/JSX.Element (vs ReactNode)
 // TODO: add tags
 // TODO: add deadline
@@ -68,7 +68,7 @@ class List extends React.Component<ListProps, TodoListState> {
 		const listNodes: Array<ReactNode> = [];
 
 		this.listStorage = getFromLocalStorage(
-			this.context?.todoStorageKey as string
+			this.context?.itemStorageKey as string
 		);
 
 		if (this.listStorage !== null) {
@@ -114,7 +114,7 @@ class List extends React.Component<ListProps, TodoListState> {
 				this.listStorage.push(newItem);
 
 				setInLocalStorage(
-					this.context?.todoStorageKey as string,
+					this.context?.itemStorageKey as string,
 					this.listStorage
 				);
 			}
@@ -149,7 +149,7 @@ class List extends React.Component<ListProps, TodoListState> {
 				}
 
 				setInLocalStorage(
-					this.context?.todoStorageKey as string,
+					this.context?.itemStorageKey as string,
 					this.listStorage
 				);
 			}

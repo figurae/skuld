@@ -14,8 +14,8 @@ export function storeTags(tagStorage: Array<TagProps>, tagStorageKey: string) {
 	}
 }
 
-export function getTags(tagStorageKey: string): Array<TagProps> {
-	const storedTags = getFromLocalStorage(tagStorageKey);
+export function getItems(storageKey: string) {
+	const storedItems = getFromLocalStorage(storageKey);
 
-	return storedTags ? storedTags : [];
+	return storedItems ? storedItems : [];
 }

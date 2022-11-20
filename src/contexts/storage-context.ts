@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 export interface StorageProps {
-	todoStorageKey: string;
+	itemStorageKey: string;
 	tagStorageKey: string;
 }
 
