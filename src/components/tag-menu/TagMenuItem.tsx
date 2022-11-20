@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import 'css/TagMenuItem.css';
 import { StorageContext } from 'contexts/storage-context';
-import { TagContext, TagProps } from 'contexts/tag-context';
+import { TagContext, TagData } from 'contexts/tag-context';
 import { storeTags } from 'helpers/local-storage';
 import { Tag, TagAction } from 'reducers/tag-reducer';
 
-interface TagItemProps extends TagProps {
+interface TagItemProps extends TagData {
 	checked: boolean;
 	itemId: number;
 }
@@ -16,6 +16,7 @@ function TagMenuItem(props: TagItemProps) {
 
 	if (storageContext !== null) {
 		useEffect(() => {
+			console.log('i have changed');
 			storeTags(tagStorageState.tagStorage, storageContext.tagStorageKey);
 		}, [tagStorageState]);
 	}
@@ -33,7 +34,7 @@ function TagMenuItem(props: TagItemProps) {
 				className={className}
 				checked={checked}
 				onChange={() => {
-					// OPTIMIZE: move this to TagMenu
+					// OPTIMIZE: move this to TagMenu, take out of return and generalize
 					const actionType = checked ? Tag.RemoveItem : Tag.AddItem;
 
 					const tagAction: TagAction = {
@@ -51,6 +52,22 @@ function TagMenuItem(props: TagItemProps) {
 			<label className='tag-menu-item-label' htmlFor={forPrefix + props.tagId}>
 				{props.tagName}
 			</label>
+			<button
+				type='button'
+				onClick={() => {
+					// FIXME: this definitely has to move outside
+					const tagAction: TagAction = {
+						type: Tag.Remove,
+						payload: {
+							tagId: props.tagId,
+						},
+					};
+
+					tagStorageDispatch(tagAction);
+				}}
+			>
+				&times;
+			</button>
 		</form>
 	);
 }

@@ -1,4 +1,4 @@
-import { TagProps, TagStorageState } from 'contexts/tag-context';
+import { TagData, TagStorageState } from 'contexts/tag-context';
 
 // automate action type creation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,7 +18,7 @@ export enum Tag {
 }
 
 type TagPayload = {
-	[Tag.Add]: TagProps;
+	[Tag.Add]: TagData;
 	[Tag.Remove]: { tagId: number };
 	[Tag.Clear]: Tag;
 	[Tag.Rename]: { tagId: number; newName: string };

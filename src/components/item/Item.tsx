@@ -4,17 +4,7 @@ import { useState } from 'react';
 import 'css/Item.css';
 import ItemHeader from 'components/item/ItemHeader';
 import ItemFooter from 'components/item/ItemFooter';
-
-export interface ItemData {
-	itemId: number;
-	itemName: string;
-	itemDescription?: string;
-	itemCreated: Date;
-	itemEdited?: Date;
-	itemCompleted?: Date;
-	itemProgress: number;
-	itemTags?: Array<number>;
-}
+import { ItemData } from 'contexts/item-context';
 
 export interface ItemProps {
 	item: ItemData;

@@ -1,17 +1,3 @@
-/* localStorage data structure:
-		key: skuld-todos
-	itemId: number
-	itemName: string
-	itemDescription?: string
-	itemCreated: Date
-	itemEdited?: Date
-	itemCompleted?: Date
-	itemProgress: number
-	itemTags?: Array<number>
-		key: skuld-tags
-	tagId: number
-	tagName: string
-	tagItems: Array<number> */
 // TODO: check ReactElement/JSX.Element (vs ReactNode)
 // TODO: add tags
 // TODO: add deadline
@@ -29,8 +15,9 @@
 import React, { ReactNode } from 'react';
 import 'css/List.css';
 import ListInterface from 'components/list/ListInterface';
-import Item, { ItemData } from 'components/item/Item';
+import Item from 'components/item/Item';
 import { StorageContext } from 'contexts/storage-context';
+import { ItemData } from 'contexts/item-context';
 import { setInLocalStorage, getFromLocalStorage } from 'helpers/local-storage';
 
 interface ListProps {

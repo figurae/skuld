@@ -1,14 +1,14 @@
 import { createContext, Dispatch } from 'react';
 import { TagAction } from 'reducers/tag-reducer';
 
-export interface TagProps {
+export interface TagData {
 	tagId: number;
 	tagName: string;
 	tagItems: Array<number>;
 }
 
 export interface TagStorageState {
-	tagStorage: Array<TagProps>;
+	tagStorage: Array<TagData>;
 	currentTagId: number;
 }
 

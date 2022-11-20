@@ -1,7 +1,7 @@
 import { createContext, Dispatch } from 'react';
 import { ItemAction } from 'reducers/item-reducer';
 
-export interface ItemProps {
+export interface ItemData {
 	itemId: number;
 	itemName: string;
 	itemDescription?: string;
@@ -12,7 +12,7 @@ export interface ItemProps {
 }
 
 export interface ItemStorageState {
-	itemStorage: Array<ItemProps>;
+	itemStorage: Array<ItemData>;
 	currentItemId: number;
 }
 

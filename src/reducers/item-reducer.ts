@@ -1,4 +1,4 @@
-import { ItemProps, ItemStorageState } from 'contexts/item-context';
+import { ItemData, ItemStorageState } from 'contexts/item-context';
 
 // automate action type creation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,7 +16,7 @@ export enum Item {
 }
 
 type ItemPayload = {
-	[Item.Add]: ItemProps;
+	[Item.Add]: ItemData;
 	[Item.Remove]: { itemId: number };
 	[Item.Clear]: Item;
 	[Item.Rename]: { itemId: number; newName: string };
