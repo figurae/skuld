@@ -1,8 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import 'css/ItemFooter.css';
 import TagMenu from 'components/tag-menu/TagMenu';
-import { StorageContext } from 'contexts/storage';
-import { storeTags } from 'helpers/tag-management';
 
 interface ItemFooterProps {
 	addedOn: Date;
@@ -10,7 +8,6 @@ interface ItemFooterProps {
 }
 
 function ItemFooter(props: ItemFooterProps) {
-	const storageContext = useContext(StorageContext);
 	const [tagMenuState, setTagMenuState] = useState(false);
 
 	const tagMenu = tagMenuState ? (
@@ -18,11 +15,6 @@ function ItemFooter(props: ItemFooterProps) {
 			itemId={props.itemId}
 			setTagMenuState={setTagMenuState}
 			onClickOutside={() => {
-				// TODO: check if tags have changed
-				if (storageContext !== null) {
-					storeTags(storageContext);
-				}
-
 				setTagMenuState(false);
 			}}
 		></TagMenu>

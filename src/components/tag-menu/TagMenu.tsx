@@ -9,8 +9,8 @@ import {
 } from 'react';
 import 'css/TagMenu.css';
 import TagMenuItem from 'components/tag-menu/TagMenuItem';
-import { StorageContext } from 'contexts/storage';
-import { addNewTag } from 'helpers/tag-management';
+import { TagContext } from 'contexts/tag-context';
+import { Tag, TagAction } from 'reducers/tag-reducer';
 
 interface TagMenuProps {
 	itemId: number;
@@ -22,7 +22,7 @@ interface TagMenuProps {
 function TagMenu(props: TagMenuProps) {
 	const tagMenu = useRef<HTMLElement>(null);
 	const { onClickOutside } = props;
-	const storageContext = useContext(StorageContext);
+	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
 	const [newTag, setNewTag] = useState<string>('');
 
 	useEffect(() => {
@@ -44,8 +44,8 @@ function TagMenu(props: TagMenuProps) {
 	// OPTIMIZE: think about generalizing/automating to-node conversion
 	const tagListNodes: Array<ReactNode> = [];
 
-	if (storageContext !== null) {
-		for (const item of storageContext.tagStorage) {
+	if (tagStorageState !== null) {
+		for (const item of tagStorageState.tagStorage) {
 			let checked = false;
 
 			if (item.tagItems.includes(props.itemId)) {
@@ -56,7 +56,7 @@ function TagMenu(props: TagMenuProps) {
 				<TagMenuItem
 					key={item.tagId}
 					checked={checked}
-					todoItemId={props.itemId}
+					itemId={props.itemId}
 					tagId={item.tagId}
 					tagName={item.tagName}
 					tagItems={item.tagItems}
@@ -79,17 +79,18 @@ function TagMenu(props: TagMenuProps) {
 					className='tag-menu-button'
 					type='button'
 					onClick={() => {
-						// TODO: refactor this into a separate function
-						if (storageContext !== null) {
-							addNewTag(storageContext, {
-								tagId: storageContext.currentTagId,
+						const tagAction: TagAction = {
+							type: Tag.Add,
+							payload: {
+								tagId: tagStorageState.currentTagId,
 								tagName: newTag,
 								tagItems: [props.itemId],
-							});
+							},
+						};
 
-							storageContext.currentTagId += 1;
-							setNewTag('');
-						}
+						tagStorageDispatch(tagAction);
+
+						setNewTag('');
 					}}
 				>
 					add

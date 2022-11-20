@@ -1,26 +1,24 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import 'css/TagMenuItem.css';
-import { StorageContext, TagProps } from 'contexts/storage';
-import { storeTags } from 'helpers/tag-management';
+import { StorageContext } from 'contexts/storage-context';
+import { TagContext, TagProps } from 'contexts/tag-context';
+import { storeTags } from 'helpers/local-storage';
+import { Tag, TagAction } from 'reducers/tag-reducer';
 
 interface TagItemProps extends TagProps {
 	checked: boolean;
-	todoItemId: number;
-}
-
-function switchTag(tagId: number, todoItemId: number, tagTodos: Array<number>) {
-	if (tagTodos.includes(todoItemId)) {
-		// TODO: try and make this work like this after moving to TagMenu
-		// tagTodos = tagTodos.filter((item) => item !== todoItemId);
-		const index = tagTodos.indexOf(todoItemId);
-		tagTodos.splice(index, 1);
-	} else {
-		tagTodos.push(todoItemId);
-	}
+	itemId: number;
 }
 
 function TagMenuItem(props: TagItemProps) {
+	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
 	const storageContext = useContext(StorageContext);
+
+	if (storageContext !== null) {
+		useEffect(() => {
+			storeTags(tagStorageState.tagStorage, storageContext.tagStorageKey);
+		}, [tagStorageState]);
+	}
 
 	const [checked, setChecked] = useState(props.checked);
 	const className = 'tag-menu-item-checkbox';
@@ -36,15 +34,24 @@ function TagMenuItem(props: TagItemProps) {
 				checked={checked}
 				onChange={() => {
 					// OPTIMIZE: move this to TagMenu
-					if (storageContext !== null) {
-						switchTag(
-							props.tagId,
-							props.todoItemId,
-							storageContext.tagStorage[props.tagId].tagItems
-						);
-						setChecked(!checked);
-						storeTags(storageContext);
+					let actionType: Tag;
+
+					if (checked === false) {
+						actionType = Tag.AddItem;
+					} else {
+						actionType = Tag.RemoveItem;
 					}
+
+					const tagAction: TagAction = {
+						type: actionType,
+						payload: {
+							tagId: props.tagId,
+							itemId: props.itemId,
+						},
+					};
+
+					tagStorageDispatch(tagAction);
+					setChecked(!checked);
 				}}
 			/>
 			<label className='tag-menu-item-label' htmlFor={forPrefix + props.tagId}>

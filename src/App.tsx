@@ -1,15 +1,17 @@
+import { useReducer } from 'react';
 import 'css/App.css';
 import Main from 'components/Main';
 import Header from 'components/app/Header';
 import Footer from 'components/app/Footer';
-import { AppContext, AppContextProps } from 'contexts/app';
-import { StorageContext, StorageProps } from 'contexts/storage';
-import { getTags } from 'helpers/tag-management';
+import { AppContext, AppProps } from 'contexts/app-context';
+import { StorageContext, StorageProps } from 'contexts/storage-context';
+import { initializeStorageState } from 'helpers/initialization';
+import { tagReducer } from 'reducers/tag-reducer';
+import { TagContext } from 'contexts/tag-context';
 
 function App() {
-	// TODO: split AppContext
-	// TODO: introduce reducers
-	const appContext: AppContextProps = {
+	// TODO: move item initialization here
+	const appContext: AppProps = {
 		appName: 'skuld',
 		appVersion: '0.1.0',
 	};
@@ -17,22 +19,24 @@ function App() {
 	const storageContext: StorageProps = {
 		todoStorageKey: 'skuld-items',
 		tagStorageKey: 'skuld-tags',
-		tagStorage: [],
-		currentTagId: 0,
 	};
 
-	storageContext.tagStorage = getTags(storageContext.tagStorageKey);
-	if (storageContext.tagStorage.length > 0) {
-		storageContext.currentTagId =
-			storageContext.tagStorage[storageContext.tagStorage.length - 1].tagId + 1;
-	}
+	const initialTagStorageState = initializeStorageState(storageContext);
+
+	const [tagStorageState, tagStorageDispatch] = useReducer(
+		tagReducer,
+		initialTagStorageState
+	);
+
 	return (
 		<>
 			<AppContext.Provider value={appContext}>
 				<Header />
 			</AppContext.Provider>
 			<StorageContext.Provider value={storageContext}>
-				<Main />
+				<TagContext.Provider value={{ tagStorageState, tagStorageDispatch }}>
+					<Main />
+				</TagContext.Provider>
 			</StorageContext.Provider>
 			<AppContext.Provider value={appContext}>
 				<Footer />

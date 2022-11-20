@@ -30,7 +30,7 @@ import React, { ReactNode } from 'react';
 import 'css/List.css';
 import ListInterface from 'components/list/ListInterface';
 import Item, { ItemData } from 'components/item/Item';
-import { StorageContext } from 'contexts/storage';
+import { StorageContext } from 'contexts/storage-context';
 import { setInLocalStorage, getFromLocalStorage } from 'helpers/local-storage';
 
 interface ListProps {

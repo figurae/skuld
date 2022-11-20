@@ -1,6 +1,6 @@
 import React from 'react';
 import 'css/Header.css';
-import { AppContext } from 'contexts/app';
+import { AppContext } from 'contexts/app-context';
 
 function Header() {
 	const appContext = React.useContext(AppContext);
