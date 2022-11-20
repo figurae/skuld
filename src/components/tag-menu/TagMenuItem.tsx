@@ -34,13 +34,7 @@ function TagMenuItem(props: TagItemProps) {
 				checked={checked}
 				onChange={() => {
 					// OPTIMIZE: move this to TagMenu
-					let actionType: Tag;
-
-					if (checked === false) {
-						actionType = Tag.AddItem;
-					} else {
-						actionType = Tag.RemoveItem;
-					}
+					const actionType = checked ? Tag.RemoveItem : Tag.AddItem;
 
 					const tagAction: TagAction = {
 						type: actionType,
