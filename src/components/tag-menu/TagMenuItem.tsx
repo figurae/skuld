@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import 'css/TagMenuItem.css';
 import { StorageContext } from 'contexts/storage-context';
 import { TagContext, TagData } from 'contexts/tag-context';
-import { storeTags } from 'helpers/local-storage';
 import { Tag, TagAction } from 'reducers/tag-reducer';
+import { storeTags } from 'helpers/local-storage';
 
 interface TagItemProps extends TagData {
 	checked: boolean;
@@ -54,6 +54,7 @@ function TagMenuItem(props: TagItemProps) {
 			</label>
 			<button
 				type='button'
+				className='tag-menu-item-remove-button'
 				onClick={() => {
 					// FIXME: this definitely has to move outside
 					const tagAction: TagAction = {

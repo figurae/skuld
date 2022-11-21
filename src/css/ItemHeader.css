@@ -12,10 +12,22 @@
 .item-header > button {
 	/* push button to the right and make it overlap content */
 	position: absolute;
-	right: 0.25rem;
-	width: 1.2rem;
-	line-height: 0.8rem;
+	right: 0.4rem;
+	top: 0.4rem;
+	width: 1rem;
+	height: 1rem;
+	line-height: 0;
 	padding-bottom: 0.1rem;
+	border: 1.5px solid darkred;
+	border-radius: var(--border-radius);
+	font-weight: bold;
+	color: pink;
+	background-color: crimson;
+}
+
+.item-header > button:hover {
+	color: white;
+	background-color: darkred;
 }
 
 /* TODO: move these to their own classes */

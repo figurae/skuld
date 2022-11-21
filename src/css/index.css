@@ -1,6 +1,6 @@
 /* global constants */
 :root {
-	--border-radius: 5px;
+	--border-radius: 0.2rem;
 	--todo-gap: 0.5rem;
 }
 
