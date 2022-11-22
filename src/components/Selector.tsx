@@ -3,7 +3,7 @@ import 'css/Selector.css';
 import { TagContext } from 'contexts/tag-context';
 
 function Selector() {
-	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
+	const { tagStorageState } = useContext(TagContext);
 
 	const tagListNodes: Array<ReactNode> = [];
 	if (tagStorageState !== null) {
