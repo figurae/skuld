@@ -28,6 +28,7 @@ function List(props: ListProps) {
 		}, [itemStorageState]);
 	}
 
+	// TODO: think about generalizing all reducer calls
 	const addItem = (itemName: string) => {
 		const itemCreated = new Date();
 		const itemProgress = 0;

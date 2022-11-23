@@ -10,7 +10,9 @@ import {
 import 'css/TagMenu.css';
 import TagMenuItem from 'components/tag-menu/TagMenuItem';
 import { TagContext } from 'contexts/tag-context';
+import { StorageContext } from 'contexts/storage-context';
 import { Tag, TagAction } from 'reducers/tag-reducer';
+import { storeItems } from 'helpers/local-storage';
 
 interface TagMenuProps {
 	itemId: number;
@@ -22,8 +24,11 @@ interface TagMenuProps {
 function TagMenu(props: TagMenuProps) {
 	const tagMenu = useRef<HTMLElement>(null);
 	const { onClickOutside } = props;
+	const storageContext = useContext(StorageContext);
 	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
 	const [newTag, setNewTag] = useState<string>('');
+	// HACK: skip useEffect firing on mount
+	const [isFirstRun, setIsFirstRun] = useState(true);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -40,6 +45,56 @@ function TagMenu(props: TagMenuProps) {
 			document.removeEventListener('click', handleClickOutside, true);
 		};
 	}, [onClickOutside]);
+
+	if (storageContext !== null) {
+		useEffect(() => {
+			if (isFirstRun) {
+				setIsFirstRun(false);
+			} else {
+				storeItems(tagStorageState.tagStorage, storageContext.tagStorageKey);
+			}
+		}, [tagStorageState]);
+	}
+	// TODO: think about generalizing all reducer calls
+	const addTag = (tagName: string, itemId: number) => {
+		const tagAction: TagAction = {
+			type: Tag.Add,
+			payload: {
+				tagId: tagStorageState.currentTagId,
+				tagName,
+				tagItems: [itemId],
+			},
+		};
+
+		tagStorageDispatch(tagAction);
+
+		setNewTag('');
+	};
+
+	const switchTag = (tagId: number, itemId: number, checked: boolean) => {
+		const actionType = checked ? Tag.RemoveItem : Tag.AddItem;
+
+		const tagAction: TagAction = {
+			type: actionType,
+			payload: {
+				tagId,
+				itemId,
+			},
+		};
+
+		tagStorageDispatch(tagAction);
+	};
+
+	const removeTag = (tagId: number) => {
+		const tagAction: TagAction = {
+			type: Tag.Remove,
+			payload: {
+				tagId,
+			},
+		};
+
+		tagStorageDispatch(tagAction);
+	};
 
 	// OPTIMIZE: generalize/automate to-node conversion
 	const tagNodes: Array<ReactNode> = [];
@@ -60,6 +115,8 @@ function TagMenu(props: TagMenuProps) {
 					tagId={item.tagId}
 					tagName={item.tagName}
 					tagItems={item.tagItems}
+					switchTag={switchTag}
+					removeTag={removeTag}
 				></TagMenuItem>
 			);
 		}
@@ -78,20 +135,7 @@ function TagMenu(props: TagMenuProps) {
 				<button
 					className='tag-menu-button'
 					type='button'
-					onClick={() => {
-						const tagAction: TagAction = {
-							type: Tag.Add,
-							payload: {
-								tagId: tagStorageState.currentTagId,
-								tagName: newTag,
-								tagItems: [props.itemId],
-							},
-						};
-
-						tagStorageDispatch(tagAction);
-
-						setNewTag('');
-					}}
+					onClick={() => addTag(newTag, props.itemId)}
 				>
 					add
 				</button>
