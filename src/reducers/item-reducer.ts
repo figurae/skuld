@@ -18,7 +18,7 @@ export enum Item {
 type ItemPayload = {
 	[Item.Add]: ItemData;
 	[Item.Remove]: { itemId: number };
-	[Item.Clear]: Item;
+	[Item.Clear]: undefined; // TODO: is this correct?
 	[Item.Rename]: { itemId: number; newName: string };
 };
 

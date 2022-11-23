@@ -1,6 +1,15 @@
+// TODO: add deadline
+// TODO: add reordering
+// TODO: add confirmation when deleting/clearing
+// TODO: add undo
+// TODO: add sorting by number/name/deadline
+// TODO: validation, duplicates (+ double check all null checks)
+// TODO: graphic design
+// TODO: make it reactive
+
 import { useReducer } from 'react';
 import 'css/App.css';
-import Main from 'components/Main';
+import Navigator from 'components/Navigator';
 import Header from 'components/app/Header';
 import Footer from 'components/app/Footer';
 import { AppContext, AppProps } from 'contexts/app-context';
@@ -46,7 +55,7 @@ function App() {
 					<ItemContext.Provider
 						value={{ itemStorageState, itemStorageDispatch }}
 					>
-						<Main />
+						<Navigator />
 					</ItemContext.Provider>
 				</TagContext.Provider>
 			</StorageContext.Provider>

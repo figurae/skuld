@@ -41,8 +41,8 @@ function TagMenu(props: TagMenuProps) {
 		};
 	}, [onClickOutside]);
 
-	// OPTIMIZE: think about generalizing/automating to-node conversion
-	const tagListNodes: Array<ReactNode> = [];
+	// OPTIMIZE: generalize/automate to-node conversion
+	const tagNodes: Array<ReactNode> = [];
 
 	if (tagStorageState !== null) {
 		for (const item of tagStorageState.tagStorage) {
@@ -52,7 +52,7 @@ function TagMenu(props: TagMenuProps) {
 				checked = true;
 			}
 
-			tagListNodes.push(
+			tagNodes.push(
 				<TagMenuItem
 					key={item.tagId}
 					checked={checked}
@@ -68,7 +68,7 @@ function TagMenu(props: TagMenuProps) {
 	return (
 		<aside className='tag-menu' ref={tagMenu}>
 			<h1>select tags:</h1>
-			{tagListNodes}
+			{tagNodes}
 			<form className='tag-menu-form'>
 				<input
 					className='tag-menu-input'

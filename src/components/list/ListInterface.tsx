@@ -3,7 +3,7 @@ import 'css/ListInterface.css';
 
 interface ListInterfaceProps {
 	name: string;
-	addTodo: (todoName: string) => void;
+	addItem: (itemName: string) => void;
 	clearList: () => void;
 }
 
@@ -28,7 +28,7 @@ function ListInterface(props: ListInterfaceProps) {
 					type='button'
 					className='todo-list-add-button'
 					onClick={() => {
-						props.addTodo(todoName);
+						props.addItem(todoName);
 						setTodoName('');
 					}}
 				>

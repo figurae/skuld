@@ -1,3 +1,4 @@
+import { ItemData } from 'contexts/item-context';
 import { TagData } from 'contexts/tag-context';
 
 export function setInLocalStorage(storageKey: string, obj: object): void {
@@ -8,15 +9,20 @@ export function getFromLocalStorage(storageKey: string) {
 	return JSON.parse(localStorage.getItem(storageKey) as string);
 }
 
-export function storeTags(tagStorage: Array<TagData>, tagStorageKey: string) {
-	console.log('in storeTags');
-	if (tagStorage.length > 0) {
-		setInLocalStorage(tagStorageKey, tagStorage);
+export function storeItems(
+	itemStorage: Array<ItemData | TagData>,
+	itemStorageKey: string
+) {
+	// TODO: analyze this
+	console.log(itemStorageKey + ': in storeItems');
+	if (itemStorage.length > 0) {
+		console.log(itemStorageKey + ': setting in localStorage');
+		setInLocalStorage(itemStorageKey, itemStorage);
 	}
 
-	if (tagStorage.length == 0) {
-		console.log('uga');
-		localStorage.removeItem(tagStorageKey);
+	if (itemStorage.length == 0) {
+		console.log(itemStorageKey + ': removing items from localStorage');
+		localStorage.removeItem(itemStorageKey);
 	}
 }
 

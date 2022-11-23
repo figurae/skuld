@@ -3,7 +3,7 @@ import 'css/TagMenuItem.css';
 import { StorageContext } from 'contexts/storage-context';
 import { TagContext, TagData } from 'contexts/tag-context';
 import { Tag, TagAction } from 'reducers/tag-reducer';
-import { storeTags } from 'helpers/local-storage';
+import { storeItems } from 'helpers/local-storage';
 
 interface TagItemProps extends TagData {
 	checked: boolean;
@@ -13,11 +13,18 @@ interface TagItemProps extends TagData {
 function TagMenuItem(props: TagItemProps) {
 	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
 	const storageContext = useContext(StorageContext);
+	// HACK: skip useEffect firing on mount
+	const [isFirstRun, setIsFirstRun] = useState(true);
 
+	// FIXME: move this outside!
 	if (storageContext !== null) {
 		useEffect(() => {
-			console.log('i have changed');
-			storeTags(tagStorageState.tagStorage, storageContext.tagStorageKey);
+			if (isFirstRun) {
+				setIsFirstRun(false);
+			} else {
+				// FIXME: this runs as many times as there are tags
+				storeItems(tagStorageState.tagStorage, storageContext.tagStorageKey);
+			}
 		}, [tagStorageState]);
 	}
 

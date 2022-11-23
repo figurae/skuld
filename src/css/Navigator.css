@@ -1,5 +1,6 @@
-.main {
-	min-height: 0; /* make todo-container not overflow layout-container */
+.navigator {
+	/* this is apparently unnecessary now
+	min-height: 0; /* make navigation not overflow parent */
 	flex-grow: 1; /* fill space between header and footer */
 	/* make a horizontal flexbox for todo interface and content */
 	display: flex;
