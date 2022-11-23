@@ -2,19 +2,20 @@ import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import 'css/List.css';
 import ListInterface from 'components/list/ListInterface';
 import Item from 'components/item/Item';
+import { StorageContext } from 'contexts/storage-context';
 import { ItemContext, ItemData } from 'contexts/item-context';
 // TODO: sort naming out
 import { Item as Itm, ItemAction } from 'reducers/item-reducer';
 import { storeItems } from 'helpers/local-storage';
-import { StorageContext } from 'contexts/storage-context';
+import { useParams } from 'react-router-dom';
+import { TagContext } from 'contexts/tag-context';
+import { Tag, TagAction } from 'reducers/tag-reducer';
 
-interface ListProps {
-	name: string;
-}
-
-function List(props: ListProps) {
+function List() {
 	const { itemStorageState, itemStorageDispatch } = useContext(ItemContext);
+	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
 	const storageContext = useContext(StorageContext);
+	const { tagId } = useParams();
 	// HACK: skip useEffect firing on mount
 	const [isFirstRun, setIsFirstRun] = useState(true);
 
@@ -46,6 +47,19 @@ function List(props: ListProps) {
 		};
 
 		itemStorageDispatch(itemAction);
+
+		// OPTIMIZE: this really shouldn't be necessary
+		if (tagId !== undefined) {
+			const tagAction: TagAction = {
+				type: Tag.AddItem,
+				payload: {
+					tagId: parseInt(tagId),
+					itemId: newItem.itemId,
+				},
+			};
+
+			tagStorageDispatch(tagAction);
+		}
 	};
 
 	const editItem = (itemId: number, newName: string) => {
@@ -85,6 +99,19 @@ function List(props: ListProps) {
 
 	if (itemStorageState !== null) {
 		for (const item of itemStorageState.itemStorage) {
+			// TODO: maybe move list generation elsewhere?
+			if (tagId !== undefined) {
+				const tagStorage = tagStorageState.tagStorage;
+				const index = tagStorageState.tagStorage
+					.map((item) => item.tagId)
+					.indexOf(parseInt(tagId));
+
+				// if list does not contain item, do not display it
+				if (!tagStorage[index].tagItems.includes(item.itemId)) {
+					continue;
+				}
+			}
+
 			itemNodes.push(
 				<Item
 					key={item.itemId}
@@ -96,10 +123,22 @@ function List(props: ListProps) {
 		}
 	}
 
+	// OPTIMIZE: give list name to List from the parent
+	let listName = 'all items';
+
+	if (tagId !== undefined) {
+		const tagStorage = tagStorageState.tagStorage;
+		const index = tagStorageState.tagStorage
+			.map((item) => item.tagId)
+			.indexOf(parseInt(tagId));
+
+		listName = tagStorage[index].tagName;
+	}
+
 	return (
 		<article className='list'>
 			<ListInterface
-				name={props.name}
+				name={listName}
 				addItem={addItem}
 				clearList={clearList}
 			></ListInterface>

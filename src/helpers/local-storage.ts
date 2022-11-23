@@ -14,14 +14,11 @@ export function storeItems(
 	itemStorageKey: string
 ) {
 	// TODO: analyze this
-	console.log(itemStorageKey + ': in storeItems');
 	if (itemStorage.length > 0) {
-		console.log(itemStorageKey + ': setting in localStorage');
 		setInLocalStorage(itemStorageKey, itemStorage);
 	}
 
 	if (itemStorage.length == 0) {
-		console.log(itemStorageKey + ': removing items from localStorage');
 		localStorage.removeItem(itemStorageKey);
 	}
 }
