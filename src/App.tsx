@@ -1,3 +1,4 @@
+// TODO: add remote db sync
 // TODO: add deadlines
 // TODO: add reordering
 // TODO: add confirmation when deleting/clearing
@@ -5,6 +6,7 @@
 // TODO: add sorting by number/name/deadline
 // TODO: validation, duplicates (+ double check all null checks)
 // TODO: maybe move css files back with tsx files?
+// TODO: introduce width limits for text
 // TODO: graphic design
 // TODO: make it reactive
 
