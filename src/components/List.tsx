@@ -132,7 +132,9 @@ function List() {
 			.map((item) => item.tagId)
 			.indexOf(parseInt(tagId));
 
-		listName = tagStorage[index].tagName;
+		if (index > -1) {
+			listName = tagStorage[index].tagName;
+		}
 	}
 
 	return (
