@@ -1,3 +1,11 @@
 table:
   name: test
   schema: public
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - text
+      filter: {}
+      query_root_fields: []
+      subscription_root_fields: []
