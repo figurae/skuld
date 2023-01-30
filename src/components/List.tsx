@@ -107,6 +107,7 @@ function List() {
 					.indexOf(parseInt(tagId));
 
 				// if list does not contain item, do not display it
+				// FIXME: crashes when removing last tag if active
 				if (!tagStorage[index].tagItems.includes(item.itemId)) {
 					continue;
 				}
