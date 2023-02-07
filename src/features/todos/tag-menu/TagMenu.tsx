@@ -7,12 +7,12 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import 'css/TagMenu.css';
-import TagMenuItem from 'components/tag-menu/TagMenuItem';
+import './TagMenu.css';
+import TagMenuItem from 'features/todos/tag-menu/TagMenuItem';
 import { TagContext } from 'contexts/tag-context';
 import { StorageContext } from 'contexts/storage-context';
 import { Tag, TagAction } from 'reducers/tag-reducer';
-import { storeItems } from 'helpers/local-storage';
+import { storeItems } from 'utils/local-storage';
 
 interface TagMenuProps {
 	itemId: number;

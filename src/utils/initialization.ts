@@ -1,7 +1,7 @@
 import { StorageProps } from 'contexts/storage-context';
 import { ItemStorageState } from 'contexts/item-context';
 import { TagStorageState } from 'contexts/tag-context';
-import { getItems } from 'helpers/local-storage';
+import { getItems } from 'utils/local-storage';
 
 export function initializeStorageState(
 	storageContext: StorageProps

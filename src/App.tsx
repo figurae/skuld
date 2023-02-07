@@ -11,17 +11,17 @@
 // TODO: make it reactive
 
 import { useReducer } from 'react';
-import 'css/App.css';
-import Navigator from 'components/Navigator';
-import Header from 'components/app/Header';
-import Footer from 'components/app/Footer';
+import './App.css';
+import Navigator from 'features/todos/Navigator';
+import Header from 'features/ui/Header';
+import Footer from 'features/ui/Footer';
 import { AppContext, AppProps } from 'contexts/app-context';
 import { StorageContext, StorageProps } from 'contexts/storage-context';
 import { ItemContext } from 'contexts/item-context';
 import { TagContext } from 'contexts/tag-context';
 import { itemReducer } from 'reducers/item-reducer';
 import { tagReducer } from 'reducers/tag-reducer';
-import { initializeStorageState } from 'helpers/initialization';
+import { initializeStorageState } from 'utils/initialization';
 
 function App() {
 	const appContext: AppProps = {

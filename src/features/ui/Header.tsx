@@ -1,5 +1,5 @@
 import React from 'react';
-import 'css/Header.css';
+import './Header.css';
 import { AppContext } from 'contexts/app-context';
 
 function Header() {

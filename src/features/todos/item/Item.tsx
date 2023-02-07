@@ -1,9 +1,9 @@
 // TODO: think about restructuring this component
 
 import { useState } from 'react';
-import 'css/Item.css';
-import ItemHeader from 'components/item/ItemHeader';
-import ItemFooter from 'components/item/ItemFooter';
+import './Item.css';
+import ItemHeader from 'features/todos/item/ItemHeader';
+import ItemFooter from 'features/todos/item/ItemFooter';
 import { ItemData } from 'contexts/item-context';
 
 export interface ItemProps {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import 'css/ListInterface.css';
+import './ListInterface.css';
 
 interface ListInterfaceProps {
 	name: string;

@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import 'css/Selector.css';
+import './Selector.css';
 import { TagContext } from 'contexts/tag-context';
 
 function Selector() {

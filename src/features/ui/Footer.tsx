@@ -1,5 +1,5 @@
 import React from 'react';
-import 'css/Footer.css';
+import './Footer.css';
 import { AppContext } from 'contexts/app-context';
 
 function Footer() {

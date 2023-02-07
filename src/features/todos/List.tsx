@@ -1,12 +1,12 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import 'css/List.css';
-import ListInterface from 'components/list/ListInterface';
-import Item from 'components/item/Item';
+import './List.css';
+import ListInterface from 'features/todos/list/ListInterface';
+import Item from 'features/todos/item/Item';
 import { StorageContext } from 'contexts/storage-context';
 import { ItemContext, ItemData } from 'contexts/item-context';
 // TODO: sort naming out
 import { Item as Itm, ItemAction } from 'reducers/item-reducer';
-import { storeItems } from 'helpers/local-storage';
+import { storeItems } from 'utils/local-storage';
 import { useParams } from 'react-router-dom';
 import { TagContext } from 'contexts/tag-context';
 import { Tag, TagAction } from 'reducers/tag-reducer';

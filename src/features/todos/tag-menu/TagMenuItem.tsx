@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import 'css/TagMenuItem.css';
+import './TagMenuItem.css';
 import { TagData } from 'contexts/tag-context';
 
 interface TagItemProps extends TagData {
