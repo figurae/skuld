@@ -8,5 +8,8 @@
 	"files.autoSave": "onFocusChange",
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[sass]": {
+		"editor.defaultFormatter": "syler.sass-indented"
 	} // optional but recommended
 }
