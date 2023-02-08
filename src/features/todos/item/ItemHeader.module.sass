@@ -1,0 +1,40 @@
+.element
+	overflow: hidden
+	height: 1.2rem
+	/* prepare coordinates for close button */
+	position: relative
+	padding: 0.25rem var(--todo-gap)
+
+	& > p
+		font-size: 16px
+
+	& > button
+		/* push button to the right and make it overlap content */
+		position: absolute
+		right: 0.4rem
+		top: 0.4rem
+		width: 1rem
+		height: 1rem
+		line-height: 0
+		padding-bottom: 0.1rem
+		border: 1.5px solid darkred
+		border-radius: var(--border-radius)
+		font-weight: bold
+		color: pink
+		background-color: crimson
+
+	& > button:hover
+		color: white
+		background-color: darkred
+
+	/* TODO: move these to their own classes */
+	& > form > input
+		font: inherit
+		border: 0
+		margin-right: var(--todo-gap)
+
+	& > form > button
+		font: inherit
+		line-height: 0.8rem
+		padding: 0 0.2rem 0.2rem
+		position: absolute

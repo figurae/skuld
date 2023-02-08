@@ -1,9 +1,9 @@
-import './Details.css';
+import styles from './Details.module.sass';
 
 function Details() {
 	return (
-		<aside className='details'>
-			<h1>todo item details</h1>
+		<aside className={styles.element}>
+			<h1 className={styles.heading}>todo item details</h1>
 		</aside>
 	);
 }

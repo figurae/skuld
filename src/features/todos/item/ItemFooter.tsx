@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './ItemFooter.css';
+import styles from './ItemFooter.module.sass';
 import { TagMenu } from 'features';
 
 interface ItemFooterProps {
@@ -21,13 +21,13 @@ function ItemFooter(props: ItemFooterProps) {
 	) : null;
 
 	return (
-		<div className='item-footer'>
-			<table className='item-footer-table'>
+		<div className={styles.element}>
+			<table className={styles.table}>
 				<tbody>
 					<tr>
 						<td>
 							<button
-								className='item-footer-add-tag'
+								className={styles.addTag}
 								type='button'
 								disabled={tagMenuState}
 								onClick={() => setTagMenuState(true)}
@@ -36,7 +36,7 @@ function ItemFooter(props: ItemFooterProps) {
 							</button>
 							{tagMenu}
 						</td>
-						<td className='item-footer-added-on'>
+						<td className={styles.addedOn}>
 							{/* FIXME: stopped working recently, investigate */}
 							added on: {props.addedOn.toLocaleString()}
 						</td>

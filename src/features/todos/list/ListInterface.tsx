@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './ListInterface.css';
+import styles from './ListInterface.module.sass';
 
 interface ListInterfaceProps {
 	name: string;
@@ -14,9 +14,9 @@ function ListInterface(props: ListInterfaceProps) {
 	const [todoName, setTodoName] = useState<string>('');
 
 	return (
-		<div className='list-interface'>
-			<h1>{props.name}</h1>
-			<form className='list-interface-input'>
+		<div className={styles.element}>
+			<h1 className={styles.header}>{props.name}</h1>
+			<form className={styles.input}>
 				<label htmlFor='todo-name'>todo name:</label>
 				<input
 					id='todo-name'
@@ -26,7 +26,6 @@ function ListInterface(props: ListInterfaceProps) {
 				/>
 				<button
 					type='button'
-					className='todo-list-add-button'
 					onClick={() => {
 						props.addItem(todoName);
 						setTodoName('');
@@ -34,11 +33,7 @@ function ListInterface(props: ListInterfaceProps) {
 				>
 					add todo
 				</button>
-				<button
-					type='button'
-					className='todo-list-clear-button'
-					onClick={props.clearList}
-				>
+				<button type='button' onClick={props.clearList}>
 					clear list
 				</button>
 			</form>

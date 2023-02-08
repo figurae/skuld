@@ -1,9 +1,0 @@
-.details {
-	padding: var(--todo-gap);
-	background-color: olive;
-}
-
-.details > h1 {
-	font-size: 16px;
-	font-weight: normal;
-}

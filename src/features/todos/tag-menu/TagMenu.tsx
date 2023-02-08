@@ -7,7 +7,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import './TagMenu.css';
+import styles from './TagMenu.module.sass';
 import { TagMenuItem } from 'features';
 import { TagContext, StorageContext } from 'contexts';
 import { Tag, TagAction } from 'reducers';
@@ -122,17 +122,17 @@ function TagMenu(props: TagMenuProps) {
 	}
 
 	return (
-		<aside className='tag-menu' ref={tagMenu}>
-			<h1>select tags:</h1>
+		<aside className={styles.element} ref={tagMenu}>
+			<h1 className={styles.header}>select tags:</h1>
 			{tagNodes}
-			<form className='tag-menu-form'>
+			<form>
 				<input
-					className='tag-menu-input'
+					className={styles.input}
 					value={newTag}
 					onChange={(event) => setNewTag(event.target.value)}
 				></input>
 				<button
-					className='tag-menu-button'
+					className={styles.button}
 					type='button'
 					onClick={() => addTag(newTag, props.itemId)}
 				>

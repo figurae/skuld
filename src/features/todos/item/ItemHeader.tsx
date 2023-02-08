@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
-import './ItemHeader.css';
+import styles from './ItemHeader.module.sass';
 
 interface ItemHeaderProps {
 	children: ReactNode;
 }
 
 function ItemHeader(props: ItemHeaderProps) {
-	return <div className='item-header'>{props.children}</div>;
+	return <div className={styles.element}>{props.children}</div>;
 }
 
 export default ItemHeader;

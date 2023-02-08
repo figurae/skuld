@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './List.css';
+import styles from './List.module.sass';
 import { Item, ListInterface } from 'features';
 import { ItemContext, ItemData, TagContext, StorageContext } from 'contexts';
 // TODO: sort Item/Itm naming out
@@ -135,13 +135,13 @@ function List() {
 	}
 
 	return (
-		<article className='list'>
+		<article className={styles.element}>
 			<ListInterface
 				name={listName}
 				addItem={addItem}
 				clearList={clearList}
 			></ListInterface>
-			<div className='list-content'>{itemNodes}</div>
+			<div className={styles.content}>{itemNodes}</div>
 		</article>
 	);
 }

@@ -1,7 +1,7 @@
 // TODO: think about restructuring this component
 
 import { useState } from 'react';
-import './Item.css';
+import styles from './Item.module.sass';
 import { ItemHeader, ItemFooter } from 'features';
 import { ItemData } from 'contexts';
 
@@ -16,7 +16,7 @@ function Item(props: ItemProps) {
 	const [newItemName, setNewItemName] = useState(props.item.itemName);
 
 	return (
-		<article className='item'>
+		<article className={styles.element}>
 			<ItemHeader>
 				<button
 					type='button'

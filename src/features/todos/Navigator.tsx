@@ -1,10 +1,10 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import './Navigator.css';
+import styles from './Navigator.module.sass';
 import { Selector, List, Details } from 'features';
 
 function Navigator() {
 	return (
-		<main className='navigator'>
+		<main className={styles.element}>
 			<Selector />
 			<Routes>
 				<Route path='/' element={<Navigate to='/all' />} />

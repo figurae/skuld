@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './TagMenuItem.css';
+import styles from './TagMenuItem.module.sass';
 import { TagData } from 'contexts';
 
 interface TagItemProps extends TagData {
@@ -11,16 +11,15 @@ interface TagItemProps extends TagData {
 
 function TagMenuItem(props: TagItemProps) {
 	const [checked, setChecked] = useState(props.checked);
-	const className = 'tag-menu-item-checkbox';
 	// TODO: generalize this
-	const forPrefix = className + '-';
+	const forPrefix = 'checkbox' + '-';
 
 	return (
-		<form className='tag-menu-item'>
+		<form>
 			<input
 				id={forPrefix + props.tagId}
 				type='checkbox'
-				className={className}
+				className={styles.checkbox}
 				checked={checked}
 				onChange={() => {
 					props.switchTag(props.tagId, props.itemId, checked);
@@ -28,12 +27,10 @@ function TagMenuItem(props: TagItemProps) {
 					setChecked(!checked);
 				}}
 			/>
-			<label className='tag-menu-item-label' htmlFor={forPrefix + props.tagId}>
-				{props.tagName}
-			</label>
+			<label htmlFor={forPrefix + props.tagId}>{props.tagName}</label>
 			<button
 				type='button'
-				className='tag-menu-item-remove-button'
+				className={styles.removeButton}
 				onClick={() => {
 					props.removeTag(props.tagId);
 				}}
