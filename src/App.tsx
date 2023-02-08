@@ -1,5 +1,4 @@
 import { useReducer } from 'react';
-import './App.css';
 import { Navigator, Header, Footer } from 'features';
 import {
 	AppContext,
