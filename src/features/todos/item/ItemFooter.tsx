@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './ItemFooter.css';
-import TagMenu from 'features/todos/tag-menu/TagMenu';
+import { TagMenu } from 'features';
 
 interface ItemFooterProps {
 	addedOn: Date;

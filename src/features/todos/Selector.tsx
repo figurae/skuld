@@ -1,7 +1,7 @@
 import { ReactNode, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Selector.css';
-import { TagContext } from 'contexts/tag-context';
+import { TagContext } from 'contexts';
 
 function Selector() {
 	const { tagStorageState } = useContext(TagContext);

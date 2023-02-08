@@ -1,15 +1,11 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import './List.css';
-import ListInterface from 'features/todos/list/ListInterface';
-import Item from 'features/todos/item/Item';
-import { StorageContext } from 'contexts/storage-context';
-import { ItemContext, ItemData } from 'contexts/item-context';
-// TODO: sort naming out
-import { Item as Itm, ItemAction } from 'reducers/item-reducer';
-import { storeItems } from 'utils/local-storage';
 import { useParams } from 'react-router-dom';
-import { TagContext } from 'contexts/tag-context';
-import { Tag, TagAction } from 'reducers/tag-reducer';
+import './List.css';
+import { Item, ListInterface } from 'features';
+import { ItemContext, ItemData, TagContext, StorageContext } from 'contexts';
+// TODO: sort Item/Itm naming out
+import { Item as Itm, ItemAction, Tag, TagAction } from 'reducers';
+import { setItems } from 'utils';
 
 function List() {
 	const { itemStorageState, itemStorageDispatch } = useContext(ItemContext);
@@ -24,7 +20,7 @@ function List() {
 			if (isFirstRun) {
 				setIsFirstRun(false);
 			} else {
-				storeItems(itemStorageState.itemStorage, storageContext.itemStorageKey);
+				setItems(itemStorageState.itemStorage, storageContext.itemStorageKey);
 			}
 		}, [itemStorageState]);
 	}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import { AppContext } from 'contexts/app-context';
+import { AppContext } from 'contexts';
 
 function Footer() {
 	const appContext = React.useContext(AppContext);

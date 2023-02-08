@@ -1,5 +1,4 @@
-import { ItemData } from 'contexts/item-context';
-import { TagData } from 'contexts/tag-context';
+import { ItemData, TagData } from 'contexts';
 
 export function setInLocalStorage(storageKey: string, obj: object): void {
 	localStorage.setItem(storageKey, JSON.stringify(obj));
@@ -9,7 +8,7 @@ export function getFromLocalStorage(storageKey: string) {
 	return JSON.parse(localStorage.getItem(storageKey) as string);
 }
 
-export function storeItems(
+export function setItems(
 	itemStorage: Array<ItemData | TagData>,
 	itemStorageKey: string
 ) {

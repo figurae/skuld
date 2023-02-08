@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './TagMenuItem.css';
-import { TagData } from 'contexts/tag-context';
+import { TagData } from 'contexts';
 
 interface TagItemProps extends TagData {
 	checked: boolean;

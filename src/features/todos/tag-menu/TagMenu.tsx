@@ -8,11 +8,10 @@ import {
 	useState,
 } from 'react';
 import './TagMenu.css';
-import TagMenuItem from 'features/todos/tag-menu/TagMenuItem';
-import { TagContext } from 'contexts/tag-context';
-import { StorageContext } from 'contexts/storage-context';
-import { Tag, TagAction } from 'reducers/tag-reducer';
-import { storeItems } from 'utils/local-storage';
+import { TagMenuItem } from 'features';
+import { TagContext, StorageContext } from 'contexts';
+import { Tag, TagAction } from 'reducers';
+import { setItems } from 'utils';
 
 interface TagMenuProps {
 	itemId: number;
@@ -51,7 +50,7 @@ function TagMenu(props: TagMenuProps) {
 			if (isFirstRun) {
 				setIsFirstRun(false);
 			} else {
-				storeItems(tagStorageState.tagStorage, storageContext.tagStorageKey);
+				setItems(tagStorageState.tagStorage, storageContext.tagStorageKey);
 			}
 		}, [tagStorageState]);
 	}

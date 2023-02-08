@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import './Item.css';
-import ItemHeader from 'features/todos/item/ItemHeader';
-import ItemFooter from 'features/todos/item/ItemFooter';
-import { ItemData } from 'contexts/item-context';
+import { ItemHeader, ItemFooter } from 'features';
+import { ItemData } from 'contexts';
 
 export interface ItemProps {
 	item: ItemData;

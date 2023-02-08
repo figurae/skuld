@@ -1,4 +1,4 @@
-import { TagData, TagStorageState } from 'contexts/tag-context';
+import { TagData, TagStorageState } from 'contexts';
 
 // automate action type creation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

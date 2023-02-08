@@ -1,4 +1,4 @@
-import { ItemData, ItemStorageState } from 'contexts/item-context';
+import { ItemData, ItemStorageState } from 'contexts';
 
 // automate action type creation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

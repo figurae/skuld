@@ -1,8 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './Navigator.css';
-import Selector from 'features/todos/Selector';
-import List from 'features/todos/List';
-import Details from 'features/todos/Details';
+import { Selector, List, Details } from 'features';
 
 function Navigator() {
 	return (
