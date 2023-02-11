@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styles from './ItemHeader.module.sass';
+import styles from './ItemHeader.module.scss';
 
 interface ItemHeaderProps {
 	children: ReactNode;

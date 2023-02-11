@@ -1,0 +1,31 @@
+.element {
+  /* fill space between selector and details */
+  flex-grow: 1;
+  /* make a vertical flexbox for todo list name and content */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.add-button {
+  width: fit-content;
+  display: inline-block;
+}
+.clear-button {
+  width: fit-content;
+  display: inline-block;
+}
+
+.content {
+  /* make a vertical flexbox for individual todo items */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+  padding: 2% 5%;
+  gap: var(--todo-gap);
+  /* make todo list content scrollable vertically */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: pink;
+}

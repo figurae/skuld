@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import styles from './Navigator.module.sass';
+import styles from './Navigator.module.scss';
 import { Selector, List, Details } from 'features';
 
 function Navigator() {

@@ -1,4 +1,4 @@
-import styles from './Details.module.sass';
+import styles from './Details.module.scss';
 
 function Details() {
 	return (

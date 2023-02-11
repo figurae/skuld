@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './ItemFooter.module.sass';
+import styles from './ItemFooter.module.scss';
 import { TagMenu } from 'features';
 
 interface ItemFooterProps {

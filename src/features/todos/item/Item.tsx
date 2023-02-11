@@ -1,7 +1,7 @@
 // TODO: think about restructuring this component
 
 import { useState } from 'react';
-import styles from './Item.module.sass';
+import styles from './Item.module.scss';
 import { ItemHeader, ItemFooter } from 'features';
 import { ItemData } from 'contexts';
 

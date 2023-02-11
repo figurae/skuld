@@ -7,7 +7,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import styles from './TagMenu.module.sass';
+import styles from './TagMenu.module.scss';
 import { TagMenuItem } from 'features';
 import { TagContext, StorageContext } from 'contexts';
 import { Tag, TagAction } from 'reducers';

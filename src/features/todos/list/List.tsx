@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styles from './List.module.sass';
+import styles from './List.module.scss';
 import { Item, ListInterface } from 'features';
 import { ItemContext, ItemData, TagContext, StorageContext } from 'contexts';
 // TODO: sort Item/Itm naming out
