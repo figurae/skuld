@@ -1,10 +1,10 @@
 .footer {
 	height: 1rem;
 	flex-shrink: 0; /* make footer height static */
-	background-color: #E7AB79;
+	background-color: #e7ab79;
 }
 
 .footer > p {
-	font-size: .7rem;
+	font-size: 0.7rem;
 	text-align: center;
 }

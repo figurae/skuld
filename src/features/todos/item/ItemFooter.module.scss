@@ -1,23 +1,23 @@
 .element {
-  overflow: hidden;
-  height: 1rem;
-  border-radius: inherit;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  padding: 0.15rem 0.25rem 0.75rem;
-  background-color: orange;
+	overflow: hidden;
+	height: 1rem;
+	border-radius: inherit;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 0.15rem 0.25rem 0.75rem;
+	background-color: orange;
 }
 
 .table {
-  width: 100%;
+	width: 100%;
 }
 
 .addTag {
-  font-size: 12px;
-  padding: 0 0.15rem;
+	font-size: 12px;
+	padding: 0 0.15rem;
 }
 
 .addedOn {
-  text-align: right;
-  font-size: 12px;
+	text-align: right;
+	font-size: 12px;
 }
