@@ -77,12 +77,6 @@ body {
 	flex-direction: column;
 }
 
-/* TODO: serve a nice monospace font as well */
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
-}
-
 .text-center {
 	text-align: center;
 }
