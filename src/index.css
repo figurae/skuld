@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* global constants */
 :root {
 	--border-radius: 0.2rem;
@@ -75,8 +79,4 @@ body {
 	display: flex;
 	flex-wrap: nowrap;
 	flex-direction: column;
-}
-
-.text-center {
-	text-align: center;
 }
