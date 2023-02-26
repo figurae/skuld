@@ -16,7 +16,7 @@ function TodoListInterface(props: ListInterfaceProps) {
 	return (
 		<div className='p-4 bg-slate-400 text-left'>
 			<h1 className='pb-2 text-slate-800 text-xl font-bold'>{props.name}</h1>
-			<form className=''>
+			<form onSubmit={(event) => event.preventDefault()}>
 				<Input
 					id='todo-name'
 					value={todoName}
