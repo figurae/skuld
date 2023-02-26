@@ -1,13 +1,13 @@
-import React from 'react';
-import './Header.css';
-import { AppContext } from 'contexts';
+interface HeaderProps {
+	appName: string;
+}
 
-function Header() {
-	const appContext = React.useContext(AppContext);
-
+function Header({ appName }: HeaderProps) {
 	return (
-		<header className='header'>
-			<h1 className='text-center'>{appContext?.appName}</h1>
+		<header className='bg-slate-600 p-4'>
+			<h1 className='text-right text-xl text-slate-200 text-shadow-sm shadow-black font-bold'>
+				{appName}
+			</h1>
 		</header>
 	);
 }

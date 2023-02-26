@@ -1,14 +1,12 @@
 import {
 	Dispatch,
-	ReactNode,
 	SetStateAction,
 	useContext,
 	useEffect,
 	useRef,
 	useState,
 } from 'react';
-import styles from './TagMenu.module.scss';
-import { TagMenuItem } from 'features';
+import { Button, Input, TagMenuItem } from 'features';
 import { TagContext, StorageContext } from 'contexts';
 import { Tag, TagAction } from 'reducers';
 import { setItems } from 'utils';
@@ -29,6 +27,7 @@ function TagMenu(props: TagMenuProps) {
 	// HACK: skip useEffect firing on mount
 	const [isFirstRun, setIsFirstRun] = useState(true);
 
+	// TODO: generalize this for use elsewhere
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
@@ -95,49 +94,41 @@ function TagMenu(props: TagMenuProps) {
 		tagStorageDispatch(tagAction);
 	};
 
-	// OPTIMIZE: generalize/automate to-node conversion
-	const tagNodes: Array<ReactNode> = [];
-
-	if (tagStorageState !== null) {
-		for (const item of tagStorageState.tagStorage) {
-			let checked = false;
-
-			if (item.tagItems.includes(props.itemId)) {
-				checked = true;
-			}
-
-			tagNodes.push(
-				<TagMenuItem
-					key={item.tagId}
-					checked={checked}
-					itemId={props.itemId}
-					tagId={item.tagId}
-					tagName={item.tagName}
-					tagItems={item.tagItems}
-					switchTag={switchTag}
-					removeTag={removeTag}
-				></TagMenuItem>
-			);
-		}
-	}
-
 	return (
-		<aside className={styles.element} ref={tagMenu}>
-			<h1 className={styles.header}>select tags:</h1>
-			{tagNodes}
-			<form>
-				<input
-					className={styles.input}
+		<aside
+			className='absolute top-20 bg-white rounded px-3 py-2 z-10'
+			ref={tagMenu}
+		>
+			{tagStorageState.tagStorage.map((tag) => {
+				let checked = false;
+
+				if (tag.tagItems.includes(props.itemId)) {
+					checked = true;
+				}
+
+				// OPTIMIZE: this seems excessive
+				return (
+					<TagMenuItem
+						key={tag.tagId}
+						checked={checked}
+						itemId={props.itemId}
+						tagId={tag.tagId}
+						tagName={tag.tagName}
+						tagItems={tag.tagItems}
+						switchTag={switchTag}
+						removeTag={removeTag}
+					/>
+				);
+			})}
+			<form onSubmit={(event) => event.preventDefault()}>
+				<Input
+					id='add-new-list'
 					value={newTag}
-					onChange={(event) => setNewTag(event.target.value)}
-				></input>
-				<button
-					className={styles.button}
-					type='button'
-					onClick={() => addTag(newTag, props.itemId)}
-				>
-					add
-				</button>
+					onChange={(event: React.ChangeEvent) =>
+						setNewTag((event.target as HTMLInputElement).value)
+					}
+				/>
+				<Button innerText='add' onClick={() => addTag(newTag, props.itemId)} />
 			</form>
 		</aside>
 	);

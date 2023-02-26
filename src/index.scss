@@ -1,8 +1,6 @@
-/* global constants */
-:root {
-	--border-radius: 0.2rem;
-	--todo-gap: 0.5rem;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* serve the following lato fonts */
 /* lato-regular - latin-ext */
@@ -46,15 +44,6 @@
 			url('fonts/lato-v23-latin-ext-700italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-* {
-	/* zero default margin and padding for all elements */
-	margin: 0;
-	padding: 0;
-	/* draw a debug inner border on everything */
-	/* box-sizing: border-box;
-  border: 1px dashed green; */
-}
-
 html,
 body {
 	height: 100%; /* make html and body height equal to that of the browser window */
@@ -73,16 +62,5 @@ body {
 	height: inherit; /* continue filling browser window */
 	/* make a vertical flexbox for the main layout */
 	display: flex;
-	flex-wrap: nowrap;
 	flex-direction: column;
-}
-
-/* TODO: serve a nice monospace font as well */
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
-}
-
-.text-center {
-	text-align: center;
 }
