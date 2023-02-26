@@ -1,5 +1,7 @@
+// TODO: this doesn't really need to be
+// a separate component; move it to TagMenu
+
 import { useState } from 'react';
-import styles from './TagMenuItem.module.scss';
 import { TagData } from 'contexts';
 
 interface TagItemProps extends TagData {
@@ -19,7 +21,6 @@ function TagMenuItem(props: TagItemProps) {
 			<input
 				id={forPrefix + props.tagId}
 				type='checkbox'
-				className={styles.checkbox}
 				checked={checked}
 				onChange={() => {
 					props.switchTag(props.tagId, props.itemId, checked);
@@ -27,15 +28,17 @@ function TagMenuItem(props: TagItemProps) {
 					setChecked(!checked);
 				}}
 			/>
-			<label htmlFor={forPrefix + props.tagId}>{props.tagName}</label>
+			<label className='pl-2' htmlFor={forPrefix + props.tagId}>
+				{props.tagName}
+			</label>
 			<button
 				type='button'
-				className={styles.removeButton}
+				className='ml-1 border bg-red-600 hover:bg-red-800 text-xs text-white font-bold px-1 pb-0.5 h-4 leading-[0px] rounded'
 				onClick={() => {
 					props.removeTag(props.tagId);
 				}}
 			>
-				&times;
+				×
 			</button>
 		</form>
 	);

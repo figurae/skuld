@@ -1,6 +1,6 @@
-export * from './item';
-export * from './list';
+export * from './todo-item';
+export * from './todo-list';
 export * from './tag-menu';
-export { default as Selector } from './Selector';
-export { default as Details } from './Details';
-export { default as Navigator } from './Navigator';
+export { default as TodoListSelector } from './TodoListSelector';
+export { default as TodoList } from './TodoList';
+export { default as TodoDetails } from './TodoDetails';

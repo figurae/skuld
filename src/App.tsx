@@ -1,7 +1,16 @@
 import { useReducer } from 'react';
-import { Navigator, Header, Footer } from 'features';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import {
-	AppContext,
+	Body,
+	Header,
+	Footer,
+	TodoListSelector,
+	TodoList,
+	TodoDetails,
+} from 'features';
+import {
+	// TODO: if this remains unused, consider not using context for this at all.
+	// AppContext,
 	AppProps,
 	StorageContext,
 	StorageProps,
@@ -17,6 +26,7 @@ function App() {
 		appVersion: '0.1.0',
 	};
 
+	// TODO: consider moving this to env
 	const storageContext: StorageProps = {
 		itemStorageKey: 'skuld-items',
 		tagStorageKey: 'skuld-tags',
@@ -38,21 +48,24 @@ function App() {
 	// OPTIMIZE: rearrange providers so that they are used only when required
 	return (
 		<>
-			<AppContext.Provider value={appContext}>
-				<Header />
-			</AppContext.Provider>
 			<StorageContext.Provider value={storageContext}>
-				<TagContext.Provider value={{ tagStorageState, tagStorageDispatch }}>
-					<ItemContext.Provider
-						value={{ itemStorageState, itemStorageDispatch }}
-					>
-						<Navigator />
-					</ItemContext.Provider>
-				</TagContext.Provider>
+				<ItemContext.Provider value={{ itemStorageState, itemStorageDispatch }}>
+					<TagContext.Provider value={{ tagStorageState, tagStorageDispatch }}>
+						<Body>
+							<Header appName={appContext.appName} />
+							<TodoListSelector />
+							<Routes>
+								<Route path='/' element={<Navigate to='/all' />} />
+								<Route path='/all' element={<TodoList />} />
+								<Route path='/:tagId' element={<TodoList />} />
+								<Route path='/:tagId/:itemId' element={<TodoDetails />} />
+							</Routes>
+						</Body>
+					</TagContext.Provider>
+				</ItemContext.Provider>
 			</StorageContext.Provider>
-			<AppContext.Provider value={appContext}>
-				<Footer />
-			</AppContext.Provider>
+
+			<Footer appVersion={appContext.appVersion} />
 		</>
 	);
 }

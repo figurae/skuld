@@ -1,14 +1,12 @@
-import React from 'react';
-import './Footer.css';
-import { AppContext } from 'contexts';
+interface FooterProps {
+	appVersion: string;
+}
 
-function Footer() {
-	const appContext = React.useContext(AppContext);
-
+function Footer({ appVersion }: FooterProps) {
 	return (
-		<footer className='footer'>
-			<p className='text-center'>
-				(╯°□°）╯︵ ┻━┻ ||| ver. {appContext?.appVersion}
+		<footer className='bg-slate-300 h-4'>
+			<p className='text-right pr-4 text-xs'>
+				(╯°□°）╯︵ ┻━┻&emsp;⚒&emsp;ver. {appVersion}
 			</p>
 		</footer>
 	);
