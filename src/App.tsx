@@ -6,7 +6,7 @@ import {
 	Footer,
 	TodoListSelector,
 	TodoList,
-	TodoDetails,
+	TodoItemDetails,
 } from 'features';
 import {
 	// TODO: if this remains unused, consider not using context for this at all.
@@ -14,10 +14,10 @@ import {
 	AppProps,
 	StorageContext,
 	StorageProps,
-	ItemContext,
-	TagContext,
+	TodoItemContext,
+	TodoListContext,
 } from 'contexts';
-import { itemReducer, tagReducer } from 'reducers';
+import { todoItemReducer, todoListReducer } from 'reducers';
 import { initializeStorageState } from 'utils';
 
 function App() {
@@ -28,41 +28,48 @@ function App() {
 
 	// TODO: consider moving this to env
 	const storageContext: StorageProps = {
-		itemStorageKey: 'skuld-items',
-		tagStorageKey: 'skuld-tags',
+		todoItemStorageKey: 'skuld-todo-items',
+		todoListStorageKey: 'skuld-todo-lists',
 	};
 
-	const [initialItemStorageState, initialTagStorageState] =
+	const [initialTodoItemStorageState, initialTodoListStorageState] =
 		initializeStorageState(storageContext);
 
-	const [itemStorageState, itemStorageDispatch] = useReducer(
-		itemReducer,
-		initialItemStorageState
+	const [todoItemStorageState, todoItemStorageDispatch] = useReducer(
+		todoItemReducer,
+		initialTodoItemStorageState
 	);
 
-	const [tagStorageState, tagStorageDispatch] = useReducer(
-		tagReducer,
-		initialTagStorageState
+	const [todoListStorageState, todoListStorageDispatch] = useReducer(
+		todoListReducer,
+		initialTodoListStorageState
 	);
 
 	// OPTIMIZE: rearrange providers so that they are used only when required
 	return (
 		<>
 			<StorageContext.Provider value={storageContext}>
-				<ItemContext.Provider value={{ itemStorageState, itemStorageDispatch }}>
-					<TagContext.Provider value={{ tagStorageState, tagStorageDispatch }}>
+				<TodoItemContext.Provider
+					value={{ todoItemStorageState, todoItemStorageDispatch }}
+				>
+					<TodoListContext.Provider
+						value={{ todoListStorageState, todoListStorageDispatch }}
+					>
 						<Body>
 							<Header appName={appContext.appName} />
 							<TodoListSelector />
 							<Routes>
 								<Route path='/' element={<Navigate to='/all' />} />
 								<Route path='/all' element={<TodoList />} />
-								<Route path='/:tagId' element={<TodoList />} />
-								<Route path='/:tagId/:itemId' element={<TodoDetails />} />
+								<Route path='/:todoListId' element={<TodoList />} />
+								<Route
+									path='/:todoListId/:todoItemId'
+									element={<TodoItemDetails />}
+								/>
 							</Routes>
 						</Body>
-					</TagContext.Provider>
-				</ItemContext.Provider>
+					</TodoListContext.Provider>
+				</TodoItemContext.Provider>
 			</StorageContext.Provider>
 
 			<Footer appVersion={appContext.appVersion} />

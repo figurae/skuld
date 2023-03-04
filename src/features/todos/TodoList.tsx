@@ -1,31 +1,44 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { TodoItem as TodoItem, TodoListInterface } from 'features';
-import { ItemContext, ItemData, TagContext, StorageContext } from 'contexts';
-import { Item, ItemAction, Tag, TagAction } from 'reducers';
-import { setItems } from 'utils';
+import { TodoItem, TodoListInterface } from 'features';
+import {
+	TodoItemContext,
+	TodoItemData,
+	TodoListContext,
+	StorageContext,
+} from 'contexts';
+import {
+	TodoItemCommand,
+	TodoItemAction,
+	TodoListCommand,
+	TodoListAction,
+} from 'reducers';
+import { setDataInLocalStorage } from 'utils';
 
 // TODO: simplify this function
 function TodoList() {
-	const { itemStorageState, itemStorageDispatch } = useContext(ItemContext);
-	const itemStorage = itemStorageState.itemStorage;
+	const { todoItemStorageState, todoItemStorageDispatch } =
+		useContext(TodoItemContext);
+	const todoItemStorage = todoItemStorageState.todoItemStorage;
 
-	const { tagStorageState, tagStorageDispatch } = useContext(TagContext);
-	const tagStorage = tagStorageState.tagStorage;
+	const { todoListStorageState, todoListStorageDispatch } =
+		useContext(TodoListContext);
+	const todoListStorage = todoListStorageState.todoListStorage;
 
 	const storageContext = useContext(StorageContext);
 
-	const { tagId } = useParams();
+	const { todoListId } = useParams();
 
-	let currentListName = 'all items';
-	// TODO: consider renaming tags to lists
-	let currentTagIndex = -1;
+	let currentTodoListName = 'all items';
+	let currentTodoListIndex = -1;
 
-	if (tagId !== undefined) {
-		currentTagIndex = tagStorage.map((tag) => tag.tagId).indexOf(Number(tagId));
+	if (todoListId !== undefined) {
+		currentTodoListIndex = todoListStorage
+			.map((todoList) => todoList.todoListId)
+			.indexOf(Number(todoListId));
 
-		if (currentTagIndex > -1) {
-			currentListName = tagStorage[currentTagIndex].tagName;
+		if (currentTodoListIndex > -1) {
+			currentTodoListName = todoListStorage[currentTodoListIndex].todoListName;
 		}
 	}
 
@@ -37,100 +50,109 @@ function TodoList() {
 			if (isFirstRun) {
 				setIsFirstRun(false);
 			} else {
-				setItems(itemStorage, storageContext.itemStorageKey);
+				setDataInLocalStorage(
+					todoItemStorage,
+					storageContext.todoItemStorageKey
+				);
 			}
 		}
-	}, [itemStorageState]);
+	}, [todoItemStorageState]);
 
 	// TODO: think about generalizing all reducer calls
-	const addItem = (itemName: string) => {
-		const itemCreated = new Date();
-		const itemProgress = 0;
+	const addTodoItem = (todoItemName: string) => {
+		const todoItemCreated = new Date();
+		const todoItemProgress = 0;
 
-		const newItem: ItemData = {
-			itemId: itemStorageState.currentItemId,
-			itemName,
-			itemCreated,
-			itemProgress,
+		const newTodoItem: TodoItemData = {
+			todoItemId: todoItemStorageState.currentTodoItemId,
+			todoItemName,
+			todoItemCreated,
+			todoItemProgress,
 		};
 
-		const itemAction: ItemAction = {
-			type: Item.Add,
-			payload: newItem,
+		const todoItemAction: TodoItemAction = {
+			type: TodoItemCommand.Add,
+			payload: newTodoItem,
 		};
 
-		itemStorageDispatch(itemAction);
+		todoItemStorageDispatch(todoItemAction);
 
 		// OPTIMIZE: this really shouldn't be necessary
-		if (tagId !== undefined) {
-			const tagAction: TagAction = {
-				type: Tag.AddItem,
+		// FIXME: this is very much broken now, seems to be a problem with non-unique keys
+		if (todoListId !== undefined) {
+			const todoListAction: TodoListAction = {
+				type: TodoListCommand.AddTodoItem,
 				payload: {
-					tagId: parseInt(tagId),
-					itemId: newItem.itemId,
+					todoListId: parseInt(todoListId),
+					todoItemId: newTodoItem.todoItemId,
 				},
 			};
 
-			tagStorageDispatch(tagAction);
+			todoListStorageDispatch(todoListAction);
 		}
 	};
 
-	const editItem = (itemId: number, newName: string) => {
-		const itemAction: ItemAction = {
-			type: Item.Rename,
+	const editTodoItem = (todoItemId: number, newTodoItemName: string) => {
+		const todoItemAction: TodoItemAction = {
+			type: TodoItemCommand.Rename,
 			payload: {
-				itemId,
-				newName,
+				todoItemId,
+				newTodoItemName,
 			},
 		};
 
-		itemStorageDispatch(itemAction);
+		todoItemStorageDispatch(todoItemAction);
 	};
 
-	const deleteItem = (itemId: number) => {
-		const itemAction: ItemAction = {
-			type: Item.Remove,
+	const deleteTodoItem = (todoItemId: number) => {
+		const todoItemAction: TodoItemAction = {
+			type: TodoItemCommand.Remove,
 			payload: {
-				itemId,
+				todoItemId,
 			},
 		};
 
-		itemStorageDispatch(itemAction);
+		todoItemStorageDispatch(todoItemAction);
 	};
 
-	const clearList = () => {
-		const itemAction: ItemAction = {
-			type: Item.Clear,
+	// NOTE: this leaves empty lists
+	// TODO: move this from todoItemReducer to todoListReducer,
+	// as this should be a list-level command
+	const clearAllTodoItems = () => {
+		const todoItemAction: TodoItemAction = {
+			type: TodoItemCommand.Clear,
 		};
 
-		itemStorageDispatch(itemAction);
+		todoItemStorageDispatch(todoItemAction);
 	};
 
 	return (
 		<article className='flex flex-grow flex-col bg-slate-400'>
 			<TodoListInterface
-				name={currentListName}
-				addItem={addItem}
-				clearList={clearList}
+				todoListName={currentTodoListName}
+				addTodoItem={addTodoItem}
+				clearAllTodoItems={clearAllTodoItems}
 			></TodoListInterface>
 			<div className='flex flex-col h-full overflow-y-auto gap-2 p-4'>
-				{itemStorage
-					.filter((item) => {
-						// if no list is selected, return all items
-						if (currentTagIndex === -1) {
+				{todoItemStorage
+					.filter((todoItem) => {
+						// if no list is selected, return all todo items
+						if (currentTodoListIndex === -1) {
 							return true;
 						}
 
-						// TODO: verify if still crashes when removing last tag if active
-						return tagStorage[currentTagIndex].tagItems.includes(item.itemId);
+						// TODO: verify if still crashes when removing last list if active
+						return todoListStorage[currentTodoListIndex].todoListItems.includes(
+							todoItem.todoItemId
+						);
 					})
-					.map((item, index) => (
+					.map((todoItem, index) => (
 						<TodoItem
-							key={item.itemId}
-							item={item}
-							itemNumber={index + 1}
-							editItem={editItem}
-							deleteItem={deleteItem}
+							key={todoItem.todoItemId}
+							todoItem={todoItem}
+							todoItemDisplayNumber={index + 1}
+							editTodoItem={editTodoItem}
+							deleteTodoItem={deleteTodoItem}
 						/>
 					))}
 			</div>

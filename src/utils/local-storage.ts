@@ -1,4 +1,4 @@
-import { ItemData, TagData } from 'contexts';
+import { TodoItemData, TodoListData } from 'contexts';
 
 export function setInLocalStorage(storageKey: string, obj: object): void {
 	localStorage.setItem(storageKey, JSON.stringify(obj));
@@ -8,22 +8,22 @@ export function getFromLocalStorage(storageKey: string) {
 	return JSON.parse(localStorage.getItem(storageKey) as string);
 }
 
-export function setItems(
-	itemStorage: Array<ItemData | TagData>,
-	itemStorageKey: string
+export function setDataInLocalStorage(
+	dataStorage: Array<TodoItemData | TodoListData>,
+	dataStorageKey: string
 ) {
 	// TODO: analyze this
-	if (itemStorage.length > 0) {
-		setInLocalStorage(itemStorageKey, itemStorage);
+	if (dataStorage.length > 0) {
+		setInLocalStorage(dataStorageKey, dataStorage);
 	}
 
-	if (itemStorage.length == 0) {
-		localStorage.removeItem(itemStorageKey);
+	if (dataStorage.length == 0) {
+		localStorage.removeItem(dataStorageKey);
 	}
 }
 
-export function getItems(storageKey: string) {
-	const storedItems = getFromLocalStorage(storageKey);
+export function getDataFromLocalStorage(dataStorageKey: string) {
+	const storedData = getFromLocalStorage(dataStorageKey);
 
-	return storedItems ? storedItems : [];
+	return storedData ? storedData : [];
 }

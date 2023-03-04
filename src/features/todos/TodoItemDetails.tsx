@@ -1,4 +1,4 @@
-function TodoDetails() {
+function TodoItemDetails() {
 	return (
 		<aside>
 			<h1>todo item details</h1>
@@ -6,4 +6,4 @@ function TodoDetails() {
 	);
 }
 
-export default TodoDetails;
+export default TodoItemDetails;

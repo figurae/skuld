@@ -1,39 +1,41 @@
 import { Button, Input } from 'features';
 import { useState } from 'react';
 
-interface ListInterfaceProps {
-	name: string;
-	addItem: (itemName: string) => void;
-	clearList: () => void;
+interface TodoListInterfaceProps {
+	todoListName: string;
+	addTodoItem: (todoItemName: string) => void;
+	clearAllTodoItems: () => void;
 }
 
-function TodoListInterface(props: ListInterfaceProps) {
+function TodoListInterface(props: TodoListInterfaceProps) {
 	// TODO: must this be done with onChange after all?
 	// useRef seems not to handle clearing input well
 	// const todoNameRef = useRef<HTMLInputElement>(null);
-	const [todoName, setTodoName] = useState<string>('');
+	const [todoItemName, setTodoItemName] = useState<string>('');
 
 	return (
 		<div className='p-4 bg-slate-400 text-left'>
-			<h1 className='pb-2 text-slate-800 text-xl font-bold'>{props.name}</h1>
+			<h1 className='pb-2 text-slate-800 text-xl font-bold'>
+				{props.todoListName}
+			</h1>
 			<form onSubmit={(event) => event.preventDefault()}>
 				<Input
-					id='todo-name'
-					value={todoName}
+					id='todo-item-name'
+					value={todoItemName}
 					placeholder='new todo name'
 					onChange={(event) =>
-						setTodoName((event.target as HTMLInputElement).value)
+						setTodoItemName((event.target as HTMLInputElement).value)
 					}
 				/>
 				<Button
 					onClick={() => {
-						props.addItem(todoName);
-						setTodoName('');
+						props.addTodoItem(todoItemName);
+						setTodoItemName('');
 					}}
 					innerText='add todo'
 				/>
 				<Button
-					onClick={props.clearList}
+					onClick={props.clearAllTodoItems}
 					type='warning'
 					innerText='clear list'
 				/>

@@ -1,7 +1,7 @@
 export { initializeStorageState } from './initialization';
 export {
-	getItems,
-	setItems,
+	getDataFromLocalStorage,
+	setDataInLocalStorage,
 	getFromLocalStorage,
 	setInLocalStorage,
 } from './local-storage';

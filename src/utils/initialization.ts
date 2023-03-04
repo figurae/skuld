@@ -1,25 +1,34 @@
-import { StorageProps, ItemStorageState, TagStorageState } from 'contexts';
-import { getItems } from 'utils';
+import {
+	StorageProps,
+	TodoItemStorageState,
+	TodoListStorageState,
+} from 'contexts';
+import { getDataFromLocalStorage } from 'utils';
 
 export function initializeStorageState(
 	storageContext: StorageProps
-): [ItemStorageState, TagStorageState] {
-	let currentTagId = 0;
-	let currentItemId = 0;
+): [TodoItemStorageState, TodoListStorageState] {
+	let currentTodoListId = 0;
+	let currentTodoItemId = 0;
 
-	const tagStorage = getItems(storageContext.tagStorageKey);
-	const itemStorage = getItems(storageContext.itemStorageKey);
+	const todoListStorage = getDataFromLocalStorage(
+		storageContext.todoListStorageKey
+	);
+	const todoItemStorage = getDataFromLocalStorage(
+		storageContext.todoItemStorageKey
+	);
 
-	if (tagStorage.length > 0) {
-		currentTagId = tagStorage[tagStorage.length - 1].tagId + 1;
+	if (todoListStorage.length > 0) {
+		currentTodoListId =
+			todoListStorage[todoListStorage.length - 1].todoListId + 1;
 	}
 
-	if (itemStorage.length > 0) {
-		currentItemId = itemStorage[itemStorage.length - 1].itemId + 1;
+	if (todoItemStorage.length > 0) {
+		currentTodoItemId = todoItemStorage[todoItemStorage.length - 1].itemId + 1;
 	}
 
 	return [
-		{ itemStorage, currentItemId },
-		{ tagStorage, currentTagId },
+		{ todoItemStorage, currentTodoItemId },
+		{ todoListStorage, currentTodoListId },
 	];
 }

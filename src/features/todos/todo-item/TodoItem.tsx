@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import { Button, Input, TagMenu } from 'features';
-import { ItemData } from 'contexts';
+import { Button, Input, TodoListMenu } from 'features';
+import { TodoItemData } from 'contexts';
 
 export interface TodoItemProps {
-	item: ItemData;
-	itemNumber: number;
-	deleteItem: (itemId: number) => void;
-	editItem: (itemId: number, newItemName: string) => void;
+	todoItem: TodoItemData;
+	todoItemDisplayNumber: number;
+	deleteTodoItem: (todoItemId: number) => void;
+	editTodoItem: (todoItemId: number, newTodoItemName: string) => void;
 }
 
 function TodoItem(props: TodoItemProps) {
 	const [isEditMode, setEditMode] = useState(false);
-	const [newItemName, setNewItemName] = useState(props.item.itemName);
+	const [newItemName, setNewItemName] = useState(props.todoItem.todoItemName);
 
-	const [tagMenuState, setTagMenuState] = useState(false);
+	const [todoListMenuState, setTodoListMenuState] = useState(false);
 
 	return (
 		<article className='relative'>
 			{isEditMode ? (
 				<form onSubmit={(event) => event.preventDefault()}>
 					<Input
-						id='edit-item-name'
+						id='edit-todo-item-name'
 						className='mb-2'
 						autoFocus
 						value={newItemName}
@@ -31,47 +31,47 @@ function TodoItem(props: TodoItemProps) {
 					<Button
 						innerText='save'
 						// TODO: this is temporary, ultimately implement outside click detection
-						// as used in TagMenu + enter support
+						// as used in TodoListMenu + enter support
 						onClick={() => {
 							setEditMode(false);
-							props.editItem(props.item.itemId, newItemName);
+							props.editTodoItem(props.todoItem.todoItemId, newItemName);
 						}}
 					/>
 					<br />
 					<Button
 						first
 						innerText='lists'
-						disabled={tagMenuState}
-						onClick={() => setTagMenuState(true)}
+						disabled={todoListMenuState}
+						onClick={() => setTodoListMenuState(true)}
 					/>
 					<Button
 						type='warning'
 						innerText='delete'
-						onClick={() => props.deleteItem(props.item.itemId)}
+						onClick={() => props.deleteTodoItem(props.todoItem.todoItemId)}
 					/>
 				</form>
 			) : (
 				<p onClick={() => setEditMode(true)}>
 					{
 						// NOTE: I think this can be done easier with contentEditable
-						// TODO: place itemNumber in a separate element with fixed width
+						// TODO: place todoItemDisplayNumber in a separate element with fixed width
 						// FIXME: when clicking on an item placed higher than the one
 						// currently being edited the behavior is inconsistent with
 						// clicking on a lower one (begins editing upper one, closes
 						// edit mode otherwise)
 					}
-					<span className='text-slate-600'>{props.itemNumber}.</span>{' '}
-					{props.item.itemName}
+					<span className='text-slate-600'>{props.todoItemDisplayNumber}.</span>{' '}
+					{props.todoItem.todoItemName}
 				</p>
 			)}
-			{tagMenuState ? (
-				<TagMenu
-					itemId={props.item.itemId}
-					setTagMenuState={setTagMenuState}
+			{todoListMenuState ? (
+				<TodoListMenu
+					todoItemId={props.todoItem.todoItemId}
+					setTodoListMenuState={setTodoListMenuState}
 					onClickOutside={() => {
-						setTagMenuState(false);
+						setTodoListMenuState(false);
 					}}
-				></TagMenu>
+				></TodoListMenu>
 			) : (
 				''
 			)}

@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { TagContext } from 'contexts';
+import { TodoListContext } from 'contexts';
 
 function TodoListSelector() {
-	const { tagStorageState } = useContext(TagContext);
+	const { todoListStorageState } = useContext(TodoListContext);
 
-	const itemStyle = 'block pl-4 hover:bg-slate-200 hover:text-slate-800';
-	const activeItemStyle = ' bg-slate-800 text-slate-200 font-bold';
+	const todoListNameStyle =
+		'block pl-4 hover:bg-slate-200 hover:text-slate-800';
+	const activeTodoListNameStyle = ' bg-slate-800 text-slate-200 font-bold';
 
 	return (
 		<>
@@ -15,20 +16,24 @@ function TodoListSelector() {
 				<NavLink
 					to='/all'
 					className={({ isActive }) =>
-						isActive ? itemStyle + activeItemStyle : itemStyle
+						isActive
+							? todoListNameStyle + activeTodoListNameStyle
+							: todoListNameStyle
 					}
 				>
 					all items
 				</NavLink>
-				{tagStorageState.tagStorage.map((item) => (
+				{todoListStorageState.todoListStorage.map((todoList) => (
 					<NavLink
-						to={'/' + item.tagId}
-						key={item.tagId}
+						to={'/' + todoList.todoListId}
+						key={todoList.todoListId}
 						className={({ isActive }) =>
-							isActive ? itemStyle + activeItemStyle : itemStyle
+							isActive
+								? todoListNameStyle + activeTodoListNameStyle
+								: todoListNameStyle
 						}
 					>
-						{item.tagName}
+						{todoList.todoListName}
 					</NavLink>
 				))}
 			</aside>
